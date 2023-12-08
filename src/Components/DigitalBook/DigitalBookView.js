@@ -1,26 +1,25 @@
 import React, { useState,useEffect, useRef } from 'react';
 import api from '../../api';
 
-const PhysicalBook  = () => {
+const DigitalBook  = () => {
 
   const refForm = useRef();
 
-  const [physicalBooks, setPhysicalBooks] = useState([]);
-  const [formPhysicalBooks, setFormPhysicalBooks] = useState({
-    titulo : '',
-    descripcion : '',
-    portada : '',
-    ubicacion : '',
-    estado : '',
-    id_autor : 0,
-    id_subcategoria : 0,
-    id_categoria : 0,
+  const [digitalBooks, setDigitalBooks] = useState([]);
+  const [formDigitalBooks, setFormDigitalBooks] = useState({
+      titulo: '',
+      portada : '',
+      descripcion: '',
+      link_Libro: '',
+      precio: 0.0,
+      id_autor: 0,
+      id_subcategoria: 0,
+      id_categoria: 0
   });
 
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [authors, setAuthors] = useState([]);
-
 
   const getAuthorName = (authorId) => {
     const author = authors.find((autor) => autor.id === authorId);
@@ -53,50 +52,50 @@ const PhysicalBook  = () => {
   };
 
 
-  const fetchPhysicalBooks = async () => {
-    const response = await api.get('/all_physicalBooks/');
-    setPhysicalBooks(response.data);
+  const fetchDigitalBooks = async () => {
+    const response = await api.get('/all_digitalBooks/');
+    setDigitalBooks(response.data);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get('/all_physicalBooks/');
+        const response = await api.get('/all_digitalBooks/');
         fetchCategories();
         fetchAuthors();
         fetchSubcategories();
         if (Array.isArray(response.data)) {
-          setPhysicalBooks(response.data);
+          setDigitalBooks(response.data);
         } else {
           console.error("La respuesta de la API no es un array:", response.data);
         }
       } catch (error) {
-        console.error("Error fetching physicalBooks:", error);
+        console.error("Error fetching digitalBooks:", error);
       }
     };
   
     fetchData();
   }, []);
 
-  const handleInputChangePhysicalBooks = (event) => {
+  const handleInputChangeDigitalBooks = (event) => {
     const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-    setFormPhysicalBooks({ ...formPhysicalBooks, [event.target.name]: value });
+    setFormDigitalBooks({ ...formDigitalBooks, [event.target.name]: value });
   };
 
-  const handleSubmitPhysicalBooks = async (event) => {
+  const handleSubmitDigitalBooks = async (event) => {
     event.preventDefault();
-    console.log("Formulario de categorías:", formPhysicalBooks);
-    //await api.post('/new_subcategory/', formPhysicalBooks);
-    fetchPhysicalBooks();
-    setFormPhysicalBooks({
-        titulo : '',
-        descripcion : '',
-        portada : '',
-        ubicacion : '',
-        estado : '',
-        id_autor : 0,
-        id_subcategoria : 0,
-        id_categoria : 0,
+    console.log("Formulario de categorías:", formDigitalBooks);
+    //await api.post('/new_subcategory/', formDigitalBooks);
+    fetchDigitalBooks();
+    setFormDigitalBooks({
+      titulo: '',
+      portada : '',
+      descripcion: '',
+      link_Libro: '',
+      precio: 0.0,
+      id_autor: 0,
+      id_subcategoria: 0,
+      id_categoria: 0
     });
     refForm.current.reset();
   };
@@ -104,30 +103,30 @@ const PhysicalBook  = () => {
   return (
   <div className='container'>
       <div className='card my-5 p-5' style={{backgroundColor: '#EFEFEF', borderRadius: '25px'}}>
-      <h2 className='card-title text-center'><strong>Registrar libro Físico</strong></h2>
+      <h2 className='card-title text-center'><strong>Registrar libro Digital</strong></h2>
       <hr style={{color: '#000'}} />
       <div className='card-body'>
-          <form ref={refForm} onSubmit={handleSubmitPhysicalBooks}>
-          <div className='form-group' onChange={handleInputChangePhysicalBooks}>
+          <form ref={refForm} onSubmit={handleSubmitDigitalBooks}>
+          <div className='form-group' onChange={handleInputChangeDigitalBooks}>
             <div className='mb-3'>
-              <label htmlFor='titulo' className='form-label'>Titulo del libros</label>
+              <label htmlFor='titulo' className='form-label'>Titulo del libro</label>
               <input 
               type='text'
               className='form-control w-50 p-3'
               name='titulo'
-              alue={formPhysicalBooks.titulo}
-              onChange={handleInputChangePhysicalBooks}
+              alue={formDigitalBooks.titulo}
+              onChange={handleInputChangeDigitalBooks}
               />
             </div>
 
             <div className='mb-3'>
-              <label htmlFor='descripcion' className='form-label'>Descripcion del libros</label>
+              <label htmlFor='descripcion' className='form-label'>Descripcion del libro</label>
               <input 
               type='text'
               className='form-control w-100 p-3 h-full'
               name='descripcion'
-              alue={formPhysicalBooks.descripcion}
-              onChange={handleInputChangePhysicalBooks}
+              alue={formDigitalBooks.descripcion}
+              onChange={handleInputChangeDigitalBooks}
               />
             </div> 
 
@@ -137,34 +136,36 @@ const PhysicalBook  = () => {
               type='text'
               className='form-control w-full he p-3'
               name='portada'
-              alue={formPhysicalBooks.portada}
-              onChange={handleInputChangePhysicalBooks}
+              alue={formDigitalBooks.portada}
+              onChange={handleInputChangeDigitalBooks}
               /> 
             </div>
 
             <div className='mb-3'>
-              <label htmlFor='ubicacion' className='form-label'>Ubicación</label>
+              <label htmlFor='link_Libro' className='form-label'>Link del PDF</label>
               <input 
               type='text'
-              className='form-control w-50 p-3'
-              name='ubicacion'
-              alue={formPhysicalBooks.ubicacion}
-              onChange={handleInputChangePhysicalBooks}
+              className='form-control w-full he p-3'
+              name='link_Libro'
+              alue={formDigitalBooks.link_Libro}
+              onChange={handleInputChangeDigitalBooks}
               /> 
             </div>
 
             <div className='mb-3'>
-              <label htmlFor='estado' className='form-label'>Estado</label>
-              <select name='estado' className='form-control w-25' onChange={handleInputChangePhysicalBooks}>
-                <option selected="true" disabled="disabled">seleccione el estado</option>
-                <option value='Disponible' selected={formPhysicalBooks.estado === 'Disponible'}>Disponible</option>
-                <option value='No disponible' selected={formPhysicalBooks.estado === 'No disponible'}>No disponible</option>
-              </select>
+              <label htmlFor='precio' className='form-label'>Precio</label>
+              <input 
+              type='number'
+              className='form-control w-50 p-3'
+              name='precio'
+              alue={formDigitalBooks.precio}
+              onChange={handleInputChangeDigitalBooks}
+              /> 
             </div>
 
             <div className='mb-3'>
               <label htmlFor='id_categoria' className='form-label'>Categoria</label>
-              <select name='id_categoria' className='form-control w-25' onChange={handleInputChangePhysicalBooks}>
+              <select name='id_categoria' className='form-control w-25' onChange={handleInputChangeDigitalBooks}>
                 <option selected="true" disabled="disabled">seleccione la categoria</option>
                 {categories.map((categoria) => (
                   <option key={categoria.id} value={categoria.id}>{categoria.nombre}</option>
@@ -174,7 +175,7 @@ const PhysicalBook  = () => {
 
             <div className='mb-3'>
               <label htmlFor='id_subcategoria' className='form-label'>Subcategoria</label>
-              <select name='id_subcategoria' className='form-control w-25' onChange={handleInputChangePhysicalBooks}>
+              <select name='id_subcategoria' className='form-control w-25' onChange={handleInputChangeDigitalBooks}>
                 <option selected="true" disabled="disabled">seleccione la subcategoria</option>
                 {subcategories.map((subcategoria) => (
                   <option key={subcategoria.id} value={subcategoria.id}>{subcategoria.nombre}</option>
@@ -184,7 +185,7 @@ const PhysicalBook  = () => {
 
             <div className='mb-3'>
               <label htmlFor='id_autor' className='form-label'>Autor</label>
-              <select name='id_autor' className='form-control w-25' onChange={handleInputChangePhysicalBooks}>
+              <select name='id_autor' className='form-control w-25' onChange={handleInputChangeDigitalBooks}>
                 <option selected="true" disabled="disabled">seleccione el autor</option>
                 {authors.map((autor) => (
                   <option key={autor.id} value={autor.id}>{autor.nombre}</option>
@@ -194,35 +195,33 @@ const PhysicalBook  = () => {
 
           </div>
           <button type='submit' className='btn btn-primary mt-3'>
-              Crear libro Físico
+              Crear Libro Digital
           </button>
           </form>
       </div>
       </div>
 
-      <h2 className='text-center'><strong>Libros Físicos Registrados</strong></h2>
+      <h2 className='text-center'><strong>Libros Digitales Registrados</strong></h2>
       <table className='table table-striped table-bordered table-hover mt-4'>
       <thead>
           <tr>
           <th>ID</th>
           <th>Titulo</th>
           <th>Portada</th>
-          <th>Ubicacion</th>
-          <th>Estado</th>
+          <th>Precio</th>
           <th>Autor</th>
           <th>Subcategoria</th>
           <th>Categoria</th>
           </tr>
       </thead>
       <tbody>
-          {console.log("PhysicalBooks:", physicalBooks)}
-          {physicalBooks.map((libro) => (
+          {console.log("DigitalBooks:", digitalBooks)}
+          {digitalBooks.map((libro) => (
           <tr key={libro.id}>
               <td>{libro.id}</td>
               <td>{libro.titulo}</td>
               <td>{libro.portada}</td>
-              <td>{libro.ubicacion}</td>
-              <td>{libro.estado}</td>
+              <td>{libro.precio}</td>
               <td>{getAuthorName(libro.id_autor)}</td>
               <td>{getSubcategoryName(libro.id_subcategoria)}</td>
               <td>{getCategoryName(libro.id_categoria)}</td>
@@ -235,4 +234,4 @@ const PhysicalBook  = () => {
   
 };
 
-export default PhysicalBook;
+export default DigitalBook;
