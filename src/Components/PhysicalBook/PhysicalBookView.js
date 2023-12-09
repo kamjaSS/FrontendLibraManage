@@ -25,6 +25,22 @@ const PhysicalBook = () => {
   const [subcategories, setSubcategories] = useState([]);
   const [authors, setAuthors] = useState([]);
 
+
+  const getAuthorName = (authorId) => {
+    const author = authors.find((autor) => autor.id === authorId);
+    return author ? author.nombre : 'N/A';
+  };
+  
+  const getSubcategoryName = (subcategoryId) => {
+    const subcategory = subcategories.find((subcategoria) => subcategoria.id === subcategoryId);
+    return subcategory ? subcategory.nombre : 'N/A';
+  };
+  
+  const getCategoryName = (categoryId) => {
+    const category = categories.find((categoria) => categoria.id === categoryId);
+    return category ? category.nombre : 'N/A';
+  };
+
   const fetchCategories = async () => {
     const response = await api.get('/all_categories/',
     {
@@ -193,8 +209,8 @@ const PhysicalBook = () => {
                 <label htmlFor='estado' className='form-label'>Estado</label>
                 <select name='estado' className='form-control w-25' onChange={handleInputChangePhysicalBooks}>
                   <option selected="true" disabled="disabled">seleccione el estado</option>
-                  <option value='Disponible'>Disponible</option>
-                  <option value='No disponible'>No disponible</option>
+                  <option value='Disponible' selected={formPhysicalBooks.estado === 'Disponible'}>Disponible</option>
+                  <option value='No disponible' selected={formPhysicalBooks.estado === 'No disponible'}>No disponible</option>
                 </select>
               </div>
 
@@ -242,8 +258,7 @@ const PhysicalBook = () => {
           <tr>
             <th>ID</th>
             <th>Titulo</th>
-            <th>Descripcion</th>
-            <th>Portada</th>
+              <th>Portada</th>
             <th>Ubicacion</th>
             <th>Estado</th>
             <th>Autor</th>
@@ -257,7 +272,6 @@ const PhysicalBook = () => {
             <tr key={libro.id}>
               <td>{libro.id}</td>
               <td>{libro.titulo}</td>
-              <td>{libro.descripcion}</td>
               <td>{libro.portada && (
                 <img
                   src={libro.portada} // Asegúrate de que el valor de libro.portada sea la URL de la imagen
@@ -267,10 +281,10 @@ const PhysicalBook = () => {
               )} </td>
               <td>{libro.ubicacion}</td>
               <td>{libro.estado}</td>
-              <td>{libro.id_autor}</td>
-              <td>{libro.id_subcategoria}</td>
-              <td>{libro.id_categoria}</td>
-            </tr>
+              <td>{getAuthorName(libro.id_autor)}</td>
+              <td>{getSubcategoryName(libro.id_subcategoria)}</td>
+              <td>{getCategoryName(libro.id_categoria)}</td>
+          </tr>
           ))}
         </tbody>
       </table>
