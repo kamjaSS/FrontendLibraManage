@@ -1,7 +1,7 @@
 import React from 'react';
 import MainView from './Components/Main/MainView';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
+import '/Users/aleja/OneDrive/Documents/2023-2/Software II/FrontendProyecto/Frontend/libramanage/src/index.css';
 import { BrowserRouter, Outlet, Routes, Route, Link }  from 'react-router-dom';
 import PhysicalBook from './Components/PhysicalBook/PhysicalBookView';
 import CategoryView from './Components/Category/CategoryView';
@@ -10,6 +10,7 @@ import AuthorView from './Components/Author/AuthorView';
 import RolView from './Components/Rol/RolView';
 import Login from './Components/User/Login';
 import {RequireToken} from './Components/Auth.js';
+import BooksView from './Components/BookSearch/BooksView.js';
 
 const App = () => {
   return (
@@ -64,9 +65,9 @@ const App = () => {
               Gestion Entidades
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a className="dropdown-item" href="/category">Categorias</a></li>
-              <li><a className="dropdown-item" href="#">Subcategorias</a></li>
-              <li><a className="dropdown-item" href="#">Autores</a></li>
+              <li><Link to='/category' className="dropdown-item">Categorias</Link></li>
+              <li><Link to='/subCategory' className="dropdown-item">Subcategorias</Link></li>
+              <li><Link to='/author' className="dropdown-item">Autores</Link></li>
             </ul>
           </div>
 
@@ -110,6 +111,7 @@ const App = () => {
             <Route path="/author" element={<AuthorView />} />
             <Route path="/rol" element={<RolView />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/books" element={<BooksView />} />
 
             
             <Route path='/' element={<MainView />}/>
