@@ -53,15 +53,20 @@ code {
   width: 40px;
 }
 
-
-
 .background-main{
   background-image: url(./Assets/FondoMain.jpg);
-  height: 100vh;
-  width: auto;
+  height: 100%;
+  width: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100% auto;
+  background-size:cover;
+  color: rgb(2, 170, 162);
+  background-attachment: fixed;
+  
+}
+.page-content {
+  position: relative;
+  z-index: 1;
 }
 
 .background-mainColor{
