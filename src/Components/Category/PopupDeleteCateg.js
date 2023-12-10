@@ -3,7 +3,7 @@ import api from '../../api';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function PopupDeleteCateg({categoríaDel, onDelete}) {
+function PopupDeleteCateg({categoriaDel, onDelete}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -11,8 +11,8 @@ function PopupDeleteCateg({categoríaDel, onDelete}) {
 
   const handleDeleteCategory = async (event) => {
     event.preventDefault();
-    console.log(categoríaDel);
-    await api.delete(`/delete_categories/${categoríaDel.id}`);
+    console.log(categoriaDel);
+    await api.delete(`/delete_categories/${categoriaDel.id}`);
     onDelete();
     handleClose();
   };
@@ -36,7 +36,7 @@ function PopupDeleteCateg({categoríaDel, onDelete}) {
           <Modal.Title>Eliminar Categoría</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Desea eliminar la categoría <strong>{categoríaDel.nombre}</strong>?
+          Desea eliminar la categoría <strong>{categoriaDel.nombre}</strong>?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
