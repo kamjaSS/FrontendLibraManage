@@ -122,7 +122,7 @@ const App = () => {
         </div>
       </div>
 
-      <div>
+      <body className='letra-proyecto'>
         <Routes>
           <Route path="/librosFisicos" element={
             
@@ -141,7 +141,7 @@ const App = () => {
           <Route path="/author" element={<AuthorView />} />
           <Route path="/rol" element={<RolView />} />
           <Route path="/login" element={<Login />} />
-            <Route path="/books" element={<BooksView />} />
+          <Route path="/books" element={<BooksView />} />
           <Route path="/register" element={<Register />} />
           
           <Route path="/user" element={
@@ -152,7 +152,7 @@ const App = () => {
           <Route path='/' element={<MainView />} />
         </Routes>
             
-      </div>
+      </body>
       
       <footer className="bg-light text-center text-lg-start">
         <div className="text-center p-3" style={{ backgroundColor: '#DECDAC' }}>
