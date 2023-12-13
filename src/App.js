@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MainView from './Components/Main/MainView';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '/ESTUDIO 2023/2023-2/Sotware II/proyecto/libraManage - Frontend/FrontendLibraManage/src/index.css';
 import { BrowserRouter, Outlet, Routes, Route, Link } from 'react-router-dom';
 import PhysicalBook from './Components/PhysicalBook/PhysicalBookView';
 import CategoryView from './Components/Category/CategoryView';
@@ -11,6 +12,8 @@ import RolView from './Components/Rol/RolView';
 import Login from './Components/User/Login';
 import Register from './Components/User/Register';
 import UserView from './Components/User/UserView';
+import ReportView from './Components/Reporte/ReportView.js';
+import FineView from './Components/Fine/FineView.js';
 import { RequireToken, fetchToken } from './Components/Auth.js';
 import BooksView from './Components/BookSearch/BooksView.js';
 import EditUser from './Components/User/EditUser.js';
@@ -66,8 +69,8 @@ const App = () => {
               Gestion Libreria
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a className="dropdown-item" href="#">Informes</a></li>
-              <li><a className="dropdown-item" href="#">Multas</a></li>
+              <li><Link to='/report' className="dropdown-item">Informe</Link></li>
+              <li><Link to='/multas' className="dropdown-item">Multas</Link></li>
             </ul>
           </div>
           {roles.nombre === 'Administrador' && (
@@ -134,18 +137,8 @@ const App = () => {
 
       <body className='letra-proyecto'>
         <Routes>
-          <Route path="/librosFisicos" element={
-
-            <PhysicalBook />
-
-          } />
-
-          <Route path="/librosDigitales"
-            element={
-              <RequireToken>
-                <DigitalBook />
-              </RequireToken>
-            } />
+          <Route path='/' element={<MainView />} />
+          <Route path="/librosFisicos" element={<PhysicalBook />} />
           <Route path="/category" element={<CategoryView />} />
           <Route path="/subCategory" element={<SubCategoryView />} />
           <Route path="/author" element={<AuthorView />} />
@@ -153,15 +146,34 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/books" element={<BooksView />} />
           <Route path="/register" element={<Register />} />
+          <Route path='/multas' element={<FineView />} />
 
-          <Route path="/user" element={
-            <RequireToken>
-              <UserView />
-            </RequireToken>} />
-          
-          
+          <Route
+            path="/librosDigitales"
+            element={
+              <RequireToken>
+                <DigitalBook />
+              </RequireToken>
+            }
+          />
 
-          <Route path='/' element={<MainView />} />
+          <Route
+            path="/report"
+            element={
+              <RequireToken>
+                <ReportView />
+              </RequireToken>
+            }
+          />
+
+          <Route
+            path="/user"
+            element={
+              <RequireToken>
+                <UserView />
+              </RequireToken>
+            }
+          />
         </Routes>
 
       </body>
