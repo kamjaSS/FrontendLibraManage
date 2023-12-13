@@ -81,9 +81,22 @@ code {
 }
 
 
+.book-container {
+  background-color: #f8f9fa; /* Establece el fondo para la imagen y la descripción */
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
 
 
+.book-image {
+  width: 100000px; /* ajusta el tamaño según tus necesidades */
+  height: auto; /* mantiene la proporción de la imagen */
+}
 
+.custom-btn {
+  max-width: 200px; /* ajusta el ancho máximo según tus necesidades */
+  width: 100%; /* asegura que el botón ocupe el ancho máximo permitido */
+}
 
 .background-mainColor{
   background-color: rgba(91, 82, 71, 0.7) ;
@@ -153,6 +166,34 @@ code {
   color: white;
   background: #5B5247;
   border-color: rgb(154, 150, 145);
+}
+
+.tamaño-subtituloLetra{
+  font-family: 'Caslon';
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.tamaño-letraTarjeta{
+  font-family: 'Caslon';
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.tamaño-descripcion{
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.tarjeta-libro{
+  background-color: #6f93dc;
+  border-radius: 25px;
+}
+
+.titulo-tarjeta{
+  font-family: 'Caslon';
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 /* Estilos para pantallas pequeñas (menos de 600px) */
