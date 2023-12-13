@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import api from '../../api';
-import { useNavigate } from 'react-router-dom';
-import { fetchToken, RequireToken } from '../Auth.js';
+import { fetchToken} from '../Auth.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../index.css';
 
@@ -141,12 +140,6 @@ const PhysicalBook = () => {
     }
   };
 
-  const navigate = useNavigate();
-  const singOut = () => {
-    localStorage.removeItem('token');
-    navigate('/');
-  }
-
 
   return (
     <div className="background-main">
@@ -158,11 +151,6 @@ const PhysicalBook = () => {
               <h2 className='card-title text-center'><strong>Registrar libro Físico</strong></h2>
               <hr style={{ color: '#000' }} />
               <div className='card-body'>
-
-                <div style={{ textAlign: 'right', alignItems: 'end', width: '100%', justifyContent: 'end' }}>
-                  <button className='btn btn-danger' onClick={singOut}>Cerrar Sesión</button>
-                </div>
-
 
                 <form ref={refForm} onSubmit={handleSubmitPhysicalBooks} method='post'>
                   <div className='form-group' onChange={handleInputChangePhysicalBooks}>
@@ -284,7 +272,7 @@ const PhysicalBook = () => {
               </tr>
             </thead>
             <tbody>
-              {console.log("PhysicalBooks:", physicalBooks)}
+             
               {physicalBooks.map((libro) => (
                 <tr key={libro.id}>
                   <td>{libro.id}</td>
