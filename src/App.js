@@ -74,8 +74,8 @@ const App = () => {
               Gestion Libreria
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><Link to='/report' className="dropdown-item">Informe</Link></li>
-              <li><Link to='/multas' className="dropdown-item">Multas</Link></li>
+              <li><Link to='/report' className="dropdown-item" style={{ fontSize: '10px' }}>Informe</Link></li>
+              <li><Link to='/multas' className="dropdown-item" style={{ fontSize: '10px' }}>Multas</Link></li>
             </ul>
           </div>
           {roles.nombre === 'Administrador' && (
@@ -84,8 +84,8 @@ const App = () => {
               Gestion Usuarios
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><Link to='/user' className="dropdown-item" >Usuarios</Link></li>
-              <li><Link to='/rol' className="dropdown-item" >Rol</Link></li>
+              <li><Link to='/user' className="dropdown-item" style={{ fontSize: '10px' }}>Usuarios</Link></li>
+              <li><Link to='/rol' className="dropdown-item" style={{ fontSize: '10px' }}>Rol</Link></li>
             </ul>
           </div>
           )}
@@ -95,8 +95,8 @@ const App = () => {
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-              <li><Link to='/librosFisicos' className="dropdown-item">Libros Físicos</Link></li>
-              <li><Link to='/librosDigitales' className="dropdown-item">Libros Digitales</Link></li>
+              <li><Link to='/librosFisicos' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Físicos</Link></li>
+              <li><Link to='/librosDigitales' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Digitales</Link></li>
 
             </ul>
           </div>
@@ -105,11 +105,12 @@ const App = () => {
               Gestion Entidades
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><Link to='/category' className="dropdown-item">Categorias</Link></li>
-              <li><Link to='/subCategory' className="dropdown-item">Subcategorias</Link></li>
-              <li><Link to='/author' className="dropdown-item">Autores</Link></li>
+              <li><Link to='/category' className="dropdown-item" style={{ fontSize: '10px' }}>Categorias</Link></li>
+              <li><Link to='/subCategory' className="dropdown-item" style={{ fontSize: '10px' }}>Subcategorias</Link></li>
+              <li><Link to='/author' className="dropdown-item" style={{ fontSize: '10px' }}>Autores</Link></li>
             </ul>
           </div>
+          <Link to='/books' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}>Buscar Libro</Link>
           {localStorage.getItem('token') ? (
             <a href='/books' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}
               onClick={() => { localStorage.removeItem('token'); window.location.reload(); }}>Cerrar sesión</a>
@@ -119,9 +120,6 @@ const App = () => {
               <Link to='/register' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}>Registrarse</Link>
             </>
           )}
-
-          
-          <Link to='/books' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}>Buscar Libro</Link>
         </div>
 
       </nav>
