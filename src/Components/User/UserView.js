@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api';
-import { fetchToken, RequireToken } from '../Auth.js';
+import { fetchToken } from '../Auth.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../index.css';
 import PopupDeleteUser from './PopupDeleteUser.js';
@@ -8,14 +8,13 @@ import EditUser from './EditUser.js';
 
 const UserView = () => {
     const [users, setUsers] = useState([]);
-    const [user, setUser] = useState(null);
-
     const [fromUser, setFormUser] = useState({
         nombre: '',
         correo: '',
         fechaNacimiento: '',
         id_rol: '',
     });
+    const [user, setUser] = useState(null);
     const [roles, setRoles] = useState([]);
 
     const fetchUser = async () => {
@@ -24,7 +23,29 @@ const UserView = () => {
                 headers: { 'Authorization': `Bearer ${fetchToken()}` }
             });
         setUsers(response.data);
-    };
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await api.get('/all_users/',
+                    {
+                        headers: { 'Authorization': `Bearer ${fetchToken()}` }
+                    });
+                console.log(Array.isArray(response.data));
+                if (Array.isArray(response.data)) {
+                    setUsers(response.data);
+                } else {
+                    console.error("La respuesta de la API no es un array:", response.data);
+                }
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
 
     const fetchUserEdit = async (id) => {
         const response = await api.get(`/update_user/${id}`,
@@ -55,26 +76,7 @@ const UserView = () => {
     }, []);
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await api.get('/all_users/',
-                    {
-                        headers: { 'Authorization': `Bearer ${fetchToken()}` }
-                    });
-                console.log(Array.isArray(response.data));
-                if (Array.isArray(response.data)) {
-                    setUsers(response.data);
-                } else {
-                    console.error("La respuesta de la API no es un array:", response.data);
-                }
-            } catch (error) {
-                console.error("Error fetching users:", error);
-            }
-        };
 
-        fetchData();
-    }, []);
 
     const handleInputChangeUsers = (event) => {
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
