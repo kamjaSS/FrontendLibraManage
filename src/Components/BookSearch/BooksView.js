@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Card, Col, Row } from 'react-bootstrap';
 
 
-const BooksView = () => {
+const BooksView = ({setBook, setCategory, setSubcategory, setAuthor}) => {
 
   const refForm = useRef();
 
@@ -80,6 +80,23 @@ const BooksView = () => {
   const getAuthorName = (authorId) => {
     const author = authors.find((autor) => autor.id === authorId);
     return author ? author.nombre : 'N/A';
+  };
+
+  const getCategoryName = (categoryId) => {
+    const category = categories.find((categoria) => categoria.id === categoryId);
+    return category ? category.nombre : 'N/A';
+  };
+
+  const getSubCategory = (SubcategoriaId) => {
+    const subcategory = subcategories.find((Subcategoria) => Subcategoria.id === SubcategoriaId);
+    return subcategory ? subcategory.nombre : 'N/A';
+  };
+
+  const Acciones = ({ book }) => {
+    setBook(book);
+    setCategory(getCategoryName(book.id_categoria));
+    setSubcategory(getSubCategory(book.id_subcategoria));
+    setAuthor(getAuthorName(book.id_autor));
   };
   
   useEffect(() => {
@@ -185,12 +202,12 @@ const BooksView = () => {
         <h1 className='text-center'><strong>Catalogo de Libros</strong></h1>
         <hr />
         {books.length === 0 || !Array.isArray(books) ? (
-          <p className="text-center mt-5">No se encontraron libros con las características proporcionadas.</p>
+          <h2 className="text-center mt-5">No se encontraron libros con las características proporcionadas.</h2>
         ) : (
-        <Row xs={1} md={2} lg={3} xl={4} className="g-4">
+        <Row xs={1} md={2} lg={3} xl={4} className="g-4 pb-5" >
           {books.map((book) => (
             <Col key={book.id}>
-              <Link to={`/book/${book.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link to={{pathname: "/book"}} style={{ textDecoration: 'none', color: 'inherit' }} onClick={() => Acciones({ book })}>
                 <Card style={{ cursor: 'pointer', position: 'relative' }}>
                 <Card.Img
                     variant="top"
@@ -209,7 +226,7 @@ const BooksView = () => {
                   </div>
                 <Card.Body>
                   <Card.Title className="p-2  text-white" style={{ backgroundColor: '#5B5247'}}>{book.titulo}</Card.Title>
-                  <Card.Text className='ml-4'>Autor: <strong>{getAuthorName(book.id_autor)}</strong></Card.Text>
+                  <Card.Text className='ml-3 tamaño-descripcion'>Autor: <strong>{getAuthorName(book.id_autor)}</strong></Card.Text>
                 </Card.Body>
                 </Card>
               </Link>

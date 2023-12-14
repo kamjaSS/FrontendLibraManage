@@ -10,6 +10,7 @@ export const setToken = (token, correo) => {
 export const fetchToken = () => {
     return localStorage.getItem('token');
 }
+
 export function RequireToken({ children }) {
     let auth = fetchToken();
     let location = useLocation();

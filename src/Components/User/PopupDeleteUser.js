@@ -13,7 +13,7 @@ function PopupDeleteUser({ userDel, onDelete }) {
     const handleDeleteUser = async (event) => {
         event.preventDefault();
     
-        const url = `/delete_user/${userDel.id}`;
+        const url = `/delete/${userDel.id}`;
         console.log('URL de solicitud:', url);
     
         try {

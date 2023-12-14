@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MainView from './Components/Main/MainView';
 import 'bootstrap/dist/css/bootstrap.min.css';
+//import '/Users/aleja/OneDrive/Documents/2023-2/Software II/FrontendProyecto/Frontend/libramanage/src/index.css';
 import { BrowserRouter, Outlet, Routes, Route, Link } from 'react-router-dom';
 import PhysicalBook from './Components/PhysicalBook/PhysicalBookView';
 import CategoryView from './Components/Category/CategoryView';
@@ -17,9 +18,15 @@ import { RequireToken, fetchToken } from './Components/Auth.js';
 import BooksView from './Components/BookSearch/BooksView.js';
 import EditUser from './Components/User/EditUser.js';
 import api from './api.js';
+import { Book } from './Components/BookSearch/Book.js';
 
 const App = () => {
   const [roles, setRoles] = useState([]);
+  const [book, setBook] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [subcategory, setSubcategory] = useState([]);
+  const [author, setAuthor] = useState([]);
+
   const [user, setUser] = useState(null);
 
   const getNameRol = (rolId) => {
@@ -69,7 +76,7 @@ const App = () => {
 
     <div className='d-flex flex-column min-vh-100 fondo-navLibreria'>
 
-      <nav className=" navbar navbar-expand-lg col mt-0">
+      <nav className=" navbar navbar-expand-lg col mt-0 ">
         <div className="container-fluid">
 
           <Link to='/' className='navbar-brand titulo-empresa'>
@@ -82,16 +89,14 @@ const App = () => {
             <strong>LibraManage</strong>
           </Link>
         </div>
-
-        <div className="d-flex align-items-center titulo-empresa">
-
-          <div className="dropdown mx-2">
-            <button className="btn outlineNav black dropdown-toggle" type="button" id="gestionLibreria" data-bs-toggle="dropdown" aria-expanded="false">
+        <div className="d-flex align-items-center tamaño-letra">
+          <div className="dropdown">
+            <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionLibreria" data-bs-toggle="dropdown" aria-expanded="false">
               Gestion Libreria
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><Link to='/report' className="dropdown-item">Informe</Link></li>
-              <li><Link to='/multas' className="dropdown-item">Multas</Link></li>
+              <li><Link to='/report' className="dropdown-item" style={{ fontSize: '10px' }}>Informe</Link></li>
+              <li><Link to='/multas' className="dropdown-item" style={{ fontSize: '10px' }}>Multas</Link></li>
             </ul>
           </div>
           {name_rol === 'Administrador' && (
@@ -112,32 +117,31 @@ const App = () => {
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                <li><Link to='/librosFisicos' className="dropdown-item">Libros Físicos</Link></li>
-                <li><Link to='/librosDigitales' className="dropdown-item">Libros Digitales</Link></li>
+                <li><Link to='/librosFisicos' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Físicos</Link></li>
+                <li><Link to='/librosDigitales' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Digitales</Link></li>
 
-              </ul>
-            </div>
-          )}
+            </ul>
+          </div>
           <div className="dropdown">
-            <button className="btn outlineNav black dropdown-toggle" type="button" id="gestionEntidades" data-bs-toggle="dropdown" aria-expanded="false">
+            <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionEntidades" data-bs-toggle="dropdown" aria-expanded="false">
               Gestion Entidades
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><Link to='/category' className="dropdown-item">Categorias</Link></li>
-              <li><Link to='/subCategory' className="dropdown-item">Subcategorias</Link></li>
-              <li><Link to='/author' className="dropdown-item">Autores</Link></li>
+              <li><Link to='/category' className="dropdown-item" style={{ fontSize: '10px' }}>Categorias</Link></li>
+              <li><Link to='/subCategory' className="dropdown-item" style={{ fontSize: '10px' }}>Subcategorias</Link></li>
+              <li><Link to='/author' className="dropdown-item" style={{ fontSize: '10px' }}>Autores</Link></li>
             </ul>
           </div>
+          <Link to='/books' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}>Buscar Libro</Link>
           {localStorage.getItem('token') ? (
-            <a href='/books' type='button' className="btn outlineNav black mt-2 mx-2"
+            <a href='/books' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}
               onClick={() => { localStorage.removeItem('token'); window.location.reload(); }}>Cerrar sesión</a>
           ) : (
             <>
-              <a href='/login' type='button' className="btn outlineNav black mt-2 mx-2">Iniciar Sesión</a>
-              <Link to='/register' type='button' className="btn outlineNav black mt-2 mx-2">Registrarse</Link>
+              <a href='/login' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}>Iniciar Sesión</a>
+              <Link to='/register' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}>Registrarse</Link>
             </>
           )}
-
         </div>
 
       </nav>
@@ -193,7 +197,7 @@ const App = () => {
       </footer>
 
 
-    </div>
+    </div >
 
 
 
