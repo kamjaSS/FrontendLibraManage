@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MainView from './Components/Main/MainView';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '/ESTUDIO 2023/2023-2/Sotware II/proyecto/libraManage - Frontend/FrontendLibraManage/src/index.css';
 import { BrowserRouter, Outlet, Routes, Route, Link } from 'react-router-dom';
 import PhysicalBook from './Components/PhysicalBook/PhysicalBookView';
 import CategoryView from './Components/Category/CategoryView';
@@ -21,14 +20,17 @@ import api from './api.js';
 
 const App = () => {
   const [roles, setRoles] = useState([]);
+  const [user, setUser] = useState(null);
+
   const getNameRol = (rolId) => {
     const role = roles.find((rol) => rol.id === rolId);
     return role ? role.nombre : 'N/A';
   };
+
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await api.get('/rol/Administrador',
+        const response = await api.get('/all_roles/',
           {
             headers: { 'Authorization': `Bearer ${fetchToken()}` }
           });
@@ -41,7 +43,26 @@ const App = () => {
     };
     fetchRoles();
   }, []);
+  const userEmail = localStorage.getItem('correo')
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await api.get(`/get_user/${userEmail}`,
+          {
+            headers: { 'Authorization': `Bearer ${fetchToken()}` }
+          });
+        if (response.status === 200) {
+          setUser(response.data);
+        }
+      } catch (error) {
+        console.error("Error en la respuesta del servidor:", error);
+      }
+    }
+    fetchUser();
+  }, []);
+
+  const name_rol = getNameRol(user?.id_rol);
 
 
   return (
@@ -73,28 +94,30 @@ const App = () => {
               <li><Link to='/multas' className="dropdown-item">Multas</Link></li>
             </ul>
           </div>
-          {roles.nombre === 'Administrador' && (
+          {name_rol === 'Administrador' && (
             <div className="dropdown">
               <button className="btn outlineNav black dropdown-toggle" type="button" id="gestionUsuarios" data-bs-toggle="dropdown" aria-expanded="false">
                 Gestion Usuarios
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><Link to='/user' className="dropdown-item" >Usuarios</Link></li>
-                <li><a className="dropdown-item" href="#">Roles</a></li>
+                <li><a className="dropdown-item" href="/rol">Roles</a></li>
               </ul>
             </div>
           )}
-          <div className="dropdown">
-            <button className="btn outlineNav black dropdown-toggle" type="button" id="gestionLibros" data-bs-toggle="dropdown" aria-expanded="false">
-              Gestion Libros
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          {name_rol === 'Administrador' && (
+            <div className="dropdown">
+              <button className="btn outlineNav black dropdown-toggle" type="button" id="gestionLibros" data-bs-toggle="dropdown" aria-expanded="false">
+                Gestion Libros
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-              <li><Link to='/librosFisicos' className="dropdown-item">Libros Físicos</Link></li>
-              <li><Link to='/librosDigitales' className="dropdown-item">Libros Digitales</Link></li>
+                <li><Link to='/librosFisicos' className="dropdown-item">Libros Físicos</Link></li>
+                <li><Link to='/librosDigitales' className="dropdown-item">Libros Digitales</Link></li>
 
-            </ul>
-          </div>
+              </ul>
+            </div>
+          )}
           <div className="dropdown">
             <button className="btn outlineNav black dropdown-toggle" type="button" id="gestionEntidades" data-bs-toggle="dropdown" aria-expanded="false">
               Gestion Entidades
@@ -118,22 +141,6 @@ const App = () => {
         </div>
 
       </nav>
-
-      <div className="container-fluid mt-3">
-        <div className="row justify-content-center">
-          <div className="col-lg-6">
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" placeholder="Buscar Libro" aria-label="Buscar Libro" aria-describedby="button-addon2" />
-              <div className='btn btn-outline-primary icon-Acciones'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" class="bi bi-search" viewBox="0 0 16 16">
-                  <path d="M11.742 10.344a7.5 7.5 0 1 0-1.397-1.398l-2.03-2.029a5.5 5.5 0 1 1 1.398 1.398l2.029 2.029z" />
-                  <path fill-rule="evenodd" d="M2.5 7a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0zm9-1a6 6 0 1 0-12 0 6 6 0 0 0 12 0z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <body className='letra-proyecto'>
         <Routes>
@@ -165,15 +172,16 @@ const App = () => {
               </RequireToken>
             }
           />
-
-          <Route
-            path="/user"
-            element={
-              <RequireToken>
-                <UserView />
-              </RequireToken>
-            }
-          />
+          {name_rol === 'Administrador' && (
+            <Route
+              path="/user"
+              element={
+                <RequireToken>
+                  <UserView />
+                </RequireToken>
+              }
+            />
+          )}
         </Routes>
 
       </body>

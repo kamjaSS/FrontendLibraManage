@@ -130,18 +130,6 @@ export default function Login() {
                                                     </div>
                                                 </div>
                                                 
-                                                <div className='form-outline mb-4'>
-                                                    <div className='input-group'>
-                                                        <span className='input-group-text'><i class="fa-solid fa-address-book"></i></span>
-                                                    <select name='id_rol' className='form-control form-control-lg' onChange={handleInputChangeRol}>
-                                                        <option selected="true" disabled="disabled">Selecciona el rol</option>
-                                                        {roles.map((rol) => (
-                                                            <option key={rol.id} value={rol.id}>{rol.nombre}</option>
-                                                        ))}
-                                                    </select>
-                                                    </div>
-                                                </div>
-                                                
                                                 <div className="d-flex justify-content-between">
                                                     <input type="button" className="btn btn-success btn-lg" name="submit" id="submit" value="Registrarse" onClick={handleSubmit}></input>
                                                     <Link to={'/books'} type="button" className="btn btn-danger btn-lg" name="submit">Cancelar</Link>

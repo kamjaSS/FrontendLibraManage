@@ -27,12 +27,13 @@ const UserView = () => {
     };
 
     const fetchUserEdit = async (id) => {
-        const response = await api.get(`/all_users/${id}`,
+        const response = await api.get(`/update_user/${id}`,
             {
                 headers: { 'Authorization': `Bearer ${fetchToken()}` }
             });
         setUser(response.data);
     }
+    console.log("Usuarioooooo.....",user);
 
     const fetchRoles = async () => {
         const response = await api.get('/all_roles/');

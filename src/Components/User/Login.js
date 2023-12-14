@@ -18,16 +18,14 @@ export default function Login() {
             Swal.fire('Error', 'Ingrese una contraseña', 'error');
         } else {
             try {
-                const response = await api.post(`/login_user?correo=${encodeURIComponent(correo)}&contrasena=${encodeURIComponent(contrasena)}`);
+                const response = await api.post(`/login_user/?correo=${encodeURIComponent(correo)}&contrasena=${encodeURIComponent(contrasena)}`);
 
 
                 if (response && response.data) {
                     if (response.data) {
                         // Inicio de sesión exitoso
-                        setToken(response.data);
-
+                        setToken(response.data, correo);
                         navigate("/librosFisicos");
-                        console.log("Token de inicio de sesión:", response.data);
                         window.location.reload();
 
                     } else {
