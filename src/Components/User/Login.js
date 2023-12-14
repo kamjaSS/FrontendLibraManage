@@ -24,7 +24,7 @@ export default function Login() {
                 if (response && response.data) {
                     if (response.data) {
                         // Inicio de sesión exitoso
-                        setToken(response.data, correo);
+                        setToken(response.data.token, correo);
                         navigate("/books");
                         window.location.reload();
 

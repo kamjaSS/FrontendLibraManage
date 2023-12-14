@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MainView from './Components/Main/MainView';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import '/Users/aleja/OneDrive/Documents/2023-2/Software II/FrontendProyecto/Frontend/libramanage/src/index.css';
+import '/Users/aleja/OneDrive/Documents/2023-2/Software II/FrontendProyecto/Frontend/libramanage/src/index.css';
 import { BrowserRouter, Outlet, Routes, Route, Link } from 'react-router-dom';
 import PhysicalBook from './Components/PhysicalBook/PhysicalBookView';
 import CategoryView from './Components/Category/CategoryView';
@@ -31,6 +31,7 @@ const App = () => {
 
   const getNameRol = (rolId) => {
     const role = roles.find((rol) => rol.id === rolId);
+    console.log(user)
     return role ? role.nombre : 'N/A';
   };
 
@@ -48,29 +49,26 @@ const App = () => {
         console.error("Error en la respuesta del servidor:", error);
       }
     };
-    fetchRoles();
-  }, []);
-  const userEmail = localStorage.getItem('correo')
-
-  useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await api.get(`/get_user/${userEmail}`,
           {
             headers: { 'Authorization': `Bearer ${fetchToken()}` }
           });
+          console.log(await response.data)
         if (response.status === 200) {
           setUser(response.data);
         }
       } catch (error) {
         console.error("Error en la respuesta del servidor:", error);
       }
-    }
+    };
+    fetchRoles();
     fetchUser();
   }, []);
+  const userEmail = localStorage.getItem('correo')
 
   const name_rol = getNameRol(user?.id_rol);
-
 
   return (
 

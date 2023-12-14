@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api';
 import PopupDeleteCateg from './PopupDeleteCateg';
+import PopUpMessage from '../PopUpInfo/PopUpMessage';
 
 const CategoryView = () => {
   const [categories, setCategories] = useState([]);
   const [fromCategories, setFormCategories] = useState({
     nombre: '',
   });
-
-
 
   const fetchCategories = async () => {
     const response = await api.get('/all_categories/');
@@ -41,7 +40,8 @@ const CategoryView = () => {
   const handleSubmitCategories = async (event) => {
     event.preventDefault();
     console.log("Formulario de categorías:", fromCategories);
-    await api.post('/new_category/', fromCategories);
+    const response = await api.post('/new_category/', fromCategories);
+    console.log(response.status)
     fetchCategories();
     setFormCategories({
       nombre: ''

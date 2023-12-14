@@ -95,6 +95,7 @@ export const Book = ({ book, autor, categoria, subcategoria}) => {
       if (token === null) {
         return;
       }
+      console.log(token)
       const response = await api.get(`/id_userToken/${token}`,
         {
           headers: { 'Authorization': `Bearer ${token}` }
