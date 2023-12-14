@@ -116,22 +116,23 @@ const App = () => {
                 Gestion Libros
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-
                 <li><Link to='/librosFisicos' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Físicos</Link></li>
                 <li><Link to='/librosDigitales' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Digitales</Link></li>
-
-            </ul>
-          </div>
-          <div className="dropdown">
-            <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionEntidades" data-bs-toggle="dropdown" aria-expanded="false">
-              Gestion Entidades
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><Link to='/category' className="dropdown-item" style={{ fontSize: '10px' }}>Categorias</Link></li>
-              <li><Link to='/subCategory' className="dropdown-item" style={{ fontSize: '10px' }}>Subcategorias</Link></li>
-              <li><Link to='/author' className="dropdown-item" style={{ fontSize: '10px' }}>Autores</Link></li>
-            </ul>
-          </div>
+              </ul>
+            </div>
+          )}
+          {name_rol === 'Administrador' && (
+            <div className="dropdown">
+              <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionEntidades" data-bs-toggle="dropdown" aria-expanded="false">
+                Gestion Entidades
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><Link to='/category' className="dropdown-item" style={{ fontSize: '10px' }}>Categorias</Link></li>
+                <li><Link to='/subCategory' className="dropdown-item" style={{ fontSize: '10px' }}>Subcategorias</Link></li>
+                <li><Link to='/author' className="dropdown-item" style={{ fontSize: '10px' }}>Autores</Link></li>
+              </ul>
+            </div>
+          )}
           <Link to='/books' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}>Buscar Libro</Link>
           {localStorage.getItem('token') ? (
             <a href='/books' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}
