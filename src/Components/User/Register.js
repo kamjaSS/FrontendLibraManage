@@ -4,6 +4,7 @@ import api from '../../api';
 import { setToken, fetchToken } from '../Auth.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../index.css';
+import Swal from 'sweetalert2';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -40,50 +41,78 @@ export default function Login() {
         });
     }
 
+    const existeCorreo = async () => {
+        try {
+            const ruta = await api.post(`/exist_correo/${correo}`);
+
+            const response = ruta;
+            if (response.status === 200) {
+                return response.data;
+            }
+        } catch (error) {
+            console.error("Error al verificar el correo:", error.response ? error.response.data : error.message);
+            return false;
+        }
+    }
+
 
     const handleSubmit = async () => {
         if (nombre.length === 0) {
-            alert("El nombre es requerido");
-        }
-        else if (correo.length === 0) {
-            alert("La dirección de correo es requerida");
-        }
-        else if (fechaNacimiento.length === 0) {
-            alert("La fecha de nacimiento es requerida");
-        }
-        else if (roles.length === 0) {
-            alert("El rol es requerido");
-        }
-        else if (contrasena.length === 0) {
-            alert("La contraseña es requerida");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El nombre es requerido'
+            });
+        } else if (correo.length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'La dirección de correo es requerida'
+            });
+        } else if (fechaNacimiento.length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'La fecha de nacimiento es requerida'
+            });
+        } else if (contrasena.length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'La contraseña es requerida'
+            });
         } else {
-            try {
-                const response = api.post('/register_user/', {
-                    nombre: nombre,
-                    correo: correo,
-                    fechaNacimiento: fechaNacimiento,
-                    id_rol: selectedRoleId,
-                    contrasena: contrasena
-                })
-                navigate("/login");
-                /*if (response && response.data) {
+            const emailExists = await existeCorreo();
+            if (emailExists) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El Usuario ya está registrado'
+                });
+                setCorreo('');
+                setContrasena('');
+                return;
+            } else {
+                try {
+                    const response = api.post('/register_user/', {
+                        nombre: nombre,
+                        correo: correo,
+                        fechaNacimiento: fechaNacimiento,
+                        contrasena: contrasena
+                    });
+
+                    // Puedes mostrar una alerta de éxito aquí si lo deseas
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Registro exitoso',
+                        text: 'Usuario registrado correctamente'
+                    });
+
                     navigate("/login");
-                    if (response.data) {
-                        setToken(response.data);
-                        
-                    }
-
-
-                } else {
-                    console.error("Respuesta del servidor no válida:", response);
-
-                    navigate("/register")
-                }*/
-
-            } catch (error) {
-                console.error("Error en la solicitud:", error.response ? error.response.data : error.message);
+                } catch (error) {
+                    console.error("Error en la solicitud:", error.response ? error.response.data : error.message);
+                }
             }
-
         }
     }
 
@@ -129,7 +158,7 @@ export default function Login() {
                                                         <input type="password" className="form-control form-control-lg" name="contrasena" id="contrasena" placeholder="Contraseña" value={contrasena} onChange={(e) => setContrasena(e.target.value)}></input>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div className="d-flex justify-content-between">
                                                     <input type="button" className="btn btn-success btn-lg" name="submit" id="submit" value="Registrarse" onClick={handleSubmit}></input>
                                                     <Link to={'/books'} type="button" className="btn btn-danger btn-lg" name="submit">Cancelar</Link>

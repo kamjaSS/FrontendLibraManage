@@ -150,12 +150,24 @@ const App = () => {
       <body className='letra-proyecto'>
         <Routes>
           <Route path='/' element={<MainView />} />
+          {name_rol === 'Administrador' && (
           <Route path="/librosFisicos" element={<PhysicalBook />} />
+          )}
+          {name_rol === 'Administrador' && (
           <Route path="/category" element={<CategoryView />} />
+          )}
+          {name_rol === 'Administrador' && (
           <Route path="/subCategory" element={<SubCategoryView />} />
+          )}
+          {name_rol === 'Administrador' && (
           <Route path="/author" element={<AuthorView />} />
+          )}
+          {name_rol === 'Administrador' && (
           <Route path="/rol" element={<RolView />} />
+          )}
+          
           <Route path="/login" element={<Login />} />
+         
           <Route path="/books" element={<BooksView setBook={setBook} setCategory={setCategory} setSubcategory={setSubcategory} setAuthor={setAuthor} />} />
           <Route path="/register" element={<Register />} />
           <Route path='/multas' element={<FineView />} />
