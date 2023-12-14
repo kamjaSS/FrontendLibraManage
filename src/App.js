@@ -88,15 +88,21 @@ const App = () => {
           </Link>
         </div>
         <div className="d-flex align-items-center tamaño-letra">
-          <div className="dropdown">
-            <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionLibreria" data-bs-toggle="dropdown" aria-expanded="false">
-              Gestion Libreria
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><Link to='/report' className="dropdown-item" style={{ fontSize: '10px' }}>Informe</Link></li>
-              <li><Link to='/multas' className="dropdown-item" style={{ fontSize: '10px' }}>Multas</Link></li>
-            </ul>
-          </div>
+          {(name_rol === 'Cliente' || name_rol === 'Bibliotecario' || name_rol ==='Administrador') && (
+            <div className="dropdown">
+              <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionLibreria" data-bs-toggle="dropdown" aria-expanded="false">
+                Gestion Libreria
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><Link to='/report' className="dropdown-item" style={{ fontSize: '10px' }}>Informe</Link></li>
+                <li><Link to='/multas' className="dropdown-item" style={{ fontSize: '10px' }}>Multas</Link></li>
+              </ul>
+            </div>
+          )}
+
+          
+
+
           {name_rol === 'Administrador' && (
             <div className="dropdown">
               <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionUsuarios" data-bs-toggle="dropdown" aria-expanded="false">
@@ -149,23 +155,23 @@ const App = () => {
         <Routes>
           <Route path='/' element={<MainView />} />
           {name_rol === 'Administrador' && (
-          <Route path="/librosFisicos" element={<PhysicalBook />} />
+            <Route path="/librosFisicos" element={<PhysicalBook />} />
           )}
           {name_rol === 'Administrador' && (
-          <Route path="/category" element={<CategoryView />} />
+            <Route path="/category" element={<CategoryView />} />
           )}
           {name_rol === 'Administrador' && (
-          <Route path="/subCategory" element={<SubCategoryView />} />
+            <Route path="/subCategory" element={<SubCategoryView />} />
           )}
           {name_rol === 'Administrador' && (
-          <Route path="/author" element={<AuthorView />} />
+            <Route path="/author" element={<AuthorView />} />
           )}
           {name_rol === 'Administrador' && (
-          <Route path="/rol" element={<RolView />} />
+            <Route path="/rol" element={<RolView />} />
           )}
-          
+
           <Route path="/login" element={<Login />} />
-         
+
           <Route path="/books" element={<BooksView setBook={setBook} setCategory={setCategory} setSubcategory={setSubcategory} setAuthor={setAuthor} />} />
           <Route path="/register" element={<Register />} />
           <Route path='/multas' element={<FineView />} />

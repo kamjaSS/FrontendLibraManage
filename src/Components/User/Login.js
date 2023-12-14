@@ -5,6 +5,7 @@ import { setToken, fetchToken } from '../Auth.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../index.css';
 import Swal from 'sweetalert2';
+import { decodeToken } from 'react-jwt';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -19,11 +20,11 @@ export default function Login() {
         } else {
             try {
                 const response = await api.post(`/login_user/?correo=${encodeURIComponent(correo)}&contrasena=${encodeURIComponent(contrasena)}`);
-
-
+                //const response = await api.post(`/login_user/`, { correo: correo, contrasena: contrasena });
+               
                 if (response && response.data) {
                     if (response.data) {
-                        // Inicio de sesión exitoso
+                        
                         setToken(response.data.token, correo);
                         navigate("/books");
                         window.location.reload();
