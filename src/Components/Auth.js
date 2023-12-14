@@ -5,6 +5,7 @@ import { Navigate, useLocation } from 'react-router-dom'
 export const setToken = (token, correo) => {
     localStorage.setItem('token', token);
     localStorage.setItem('correo', correo);
+    window.location.reload();
 }
 
 export const fetchToken = () => {
