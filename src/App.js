@@ -101,18 +101,18 @@ const App = () => {
           </div>
           {name_rol === 'Administrador' && (
             <div className="dropdown">
-              <button className="btn outlineNav black dropdown-toggle" type="button" id="gestionUsuarios" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionUsuarios" data-bs-toggle="dropdown" aria-expanded="false">
                 Gestion Usuarios
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><Link to='/user' className="dropdown-item" >Usuarios</Link></li>
-                <li><a className="dropdown-item" href="/rol">Roles</a></li>
+                <li><Link to='/user' className="dropdown-item" style={{ fontSize: '10px' }}>Usuarios</Link></li>
+                <li><a className="dropdown-item" href="/rol" style={{ fontSize: '10px' }}>Roles</a></li>
               </ul>
             </div>
           )}
           {name_rol === 'Administrador' && (
             <div className="dropdown">
-              <button className="btn outlineNav black dropdown-toggle" type="button" id="gestionLibros" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionLibros" data-bs-toggle="dropdown" aria-expanded="false">
                 Gestion Libros
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -156,9 +156,10 @@ const App = () => {
           <Route path="/author" element={<AuthorView />} />
           <Route path="/rol" element={<RolView />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/books" element={<BooksView />} />
+          <Route path="/books" element={<BooksView setBook={setBook} setCategory={setCategory} setSubcategory={setSubcategory} setAuthor={setAuthor} />} />
           <Route path="/register" element={<Register />} />
           <Route path='/multas' element={<FineView />} />
+          <Route path='/book' element={<Book book={book} categoria={category} subcategoria={subcategory} autor={author} />} />
 
           <Route
             path="/librosDigitales"

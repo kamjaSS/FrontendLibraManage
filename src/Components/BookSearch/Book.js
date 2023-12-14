@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import api from '../../api';
 import { Card, Col} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-//import DatePicker from 'react-datepicker';
+import DatePicker from 'react-datepicker';
 import { fetchToken, RequireToken } from '../Auth.js';
 
-//import 'react-datepicker/dist/react-datepicker.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export const Book = ({ book, autor, categoria, subcategoria}) => {
 
