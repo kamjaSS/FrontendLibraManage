@@ -99,8 +99,8 @@ const DigitalBook = () => {
   const handleSubmitDigitalBooks = async (event) => {
     event.preventDefault();
     console.log("Formulario de categorías:", formDigitalBooks);
-    const response = await api.post('/new_subcategory/', formDigitalBooks);
-
+    const response = await api.post(`/register_digitalBooks/?titulo=${encodeURIComponent(formDigitalBooks.titulo)}&descripcion=${encodeURIComponent(formDigitalBooks.descripcion)}&precio=${encodeURIComponent(formDigitalBooks.precio)}&id_autor=${encodeURIComponent(formDigitalBooks.id_autor)}&id_categoria=${encodeURIComponent(formDigitalBooks.id_categoria)}&id_subcategoria=${encodeURIComponent(formDigitalBooks.id_subcategoria)}&url_image=${encodeURIComponent(formDigitalBooks.portada)}&link_libro=${encodeURIComponent(formDigitalBooks.link_Libro)}`);
+    console.log(response);
     if (response.status === 200) {
       Swal.fire({ title: "Registro Realizado", text: "Se realizó el registro exitosamente", icon: "success" });
     } else {
@@ -120,11 +120,6 @@ const DigitalBook = () => {
     refForm.current.reset();
   };
 
-  const navigate = useNavigate();
-  const singOut = () => {
-    localStorage.removeItem('token');
-    navigate('/');
-  }
 
   return (
     <div className="background-main">
@@ -135,9 +130,6 @@ const DigitalBook = () => {
             <h2 className='card-title text-center'><strong>Registrar libro Digital</strong></h2>
             <hr style={{ color: '#000' }} />
             <div className='card-body'>
-              <div style={{ textAlign: 'right', alignItems: 'end', width: '100%', justifyContent: 'end' }}>
-                <button className='btn btn-danger' onClick={singOut}>Cerrar Sesión</button>
-              </div>
               <form ref={refForm} onSubmit={handleSubmitDigitalBooks} >
                 <div className='form-group' onChange={handleInputChangeDigitalBooks}>
                   <div className='mb-3'>
@@ -247,7 +239,7 @@ const DigitalBook = () => {
                 <th>Autor</th>
                 <th>Subcategoria</th>
                 <th>Categoria</th>
-                <th>Acciones</th>
+               
               </tr>
             </thead>
             <tbody>
@@ -268,9 +260,7 @@ const DigitalBook = () => {
                   <td>{getAuthorName(libro.id_autor)}</td>
                   <td>{getSubcategoryName(libro.id_subcategoria)}</td>
                   <td>{getCategoryName(libro.id_categoria)}</td>
-                  <td>
-                    <EditDigitalBook libroEdit={libro} onEdit={fetchDigitalBooksEdit} />
-                  </td>
+                  
                 </tr>
               ))}
             </tbody>

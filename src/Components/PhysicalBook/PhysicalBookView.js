@@ -74,10 +74,7 @@ const PhysicalBook = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await api.get('/all_roles/',
-          {
-            headers: { 'Authorization': `Bearer ${fetchToken()}` }
-          });
+        const response = await api.get('/all_roles/');
         if (response.status === 200) {
           setRoles(response.data);
         }
@@ -139,7 +136,12 @@ const PhysicalBook = () => {
   const handleSubmitPhysicalBooks = async (event) => {
     event.preventDefault();
     try {
-      const response = await api.post('/register_physicalBooks/', formPhysicalBooks);
+      /*const response = await api.post('/register_physicalBooks/', formPhysicalBooks,
+      {
+        headers: { 'Authorization': `Bearer ${fetchToken()}` }
+      });*/
+      const response = await api.post(`/register_physicalBooks/?titulo=${encodeURIComponent(formPhysicalBooks.titulo)}&descripcion=${encodeURIComponent(formPhysicalBooks.descripcion)}&ubicacion=${encodeURIComponent(formPhysicalBooks.ubicacion)}&estado=${encodeURIComponent(formPhysicalBooks.estado)}&id_autor=${encodeURIComponent(formPhysicalBooks.id_autor)}&id_categoria=${encodeURIComponent(formPhysicalBooks.id_categoria)}&id_subcategoria=${encodeURIComponent(formPhysicalBooks.id_subcategoria)}&url_image=${encodeURIComponent(formPhysicalBooks.portada)}`,
+      );
       if (response.status === 200) {
         Swal.fire({ title: "Registro Realizado", text: "Se realizó el registro del libro exitosamente", icon: "success" });
       } else {
