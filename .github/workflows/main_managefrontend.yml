@@ -62,4 +62,4 @@ jobs:
           app-name: 'managefrontend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_527234CD930F4E14B051A4E1FF7B9E33 }}
-          package: .
+          package: ./build
