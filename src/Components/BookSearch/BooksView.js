@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Card, Col, Row } from 'react-bootstrap';
 
 
+
 const BooksView = ({setBook, setCategory, setSubcategory, setAuthor}) => {
 
   const refForm = useRef();
@@ -223,7 +224,7 @@ const BooksView = ({setBook, setCategory, setSubcategory, setAuthor}) => {
                       e.currentTarget.nextSibling.style.display = 'none';
                     }}
                   />
-                  <div className="overlay">
+                  <div style={{display: 'none', position: 'absolute', top: 0, left: 0, width: "100%", height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'rgb(249, 247, 247)', alignItems: 'center', justifyContent: 'center'}}>
                     <p style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>{book.titulo}</p>
                   </div>
                 <Card.Body>

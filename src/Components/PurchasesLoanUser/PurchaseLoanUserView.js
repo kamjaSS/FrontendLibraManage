@@ -65,6 +65,7 @@ const PurchaseLoanByUser = ({ userId }) => {
                 <th scope="col">Libro</th>
                 <th scope="col">Portada</th>
                 <th scope="col">Fech. Prestamo</th>
+                <th scope="col">Fech. Devolución</th>
                 <th scope="col">Estado</th>
               </tr>
             </thead>
@@ -81,6 +82,7 @@ const PurchaseLoanByUser = ({ userId }) => {
                     />
                   )} </td>
                   <td>{loan.fechaPrestamo}</td>
+                  <td>{loan.fechaVencimiento}</td>
                   <td>{loan.devuelto === true ? 'Devuelto' : 'No Devuelto'}</td>
                 </tr>
               ))}

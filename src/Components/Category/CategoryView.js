@@ -20,7 +20,10 @@ const CategoryView = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get('/all_categories/');
+        const response = await api.get('/all_categories/',
+        {
+          headers: { 'Authorization': `Bearer ${fetchToken()}` }
+        });
         console.log(Array.isArray(response.data));
         if (Array.isArray(response.data)) {
           setCategories(response.data);

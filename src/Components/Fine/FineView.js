@@ -107,7 +107,6 @@ const FineView = () => {
                 {rol_name === 'Administrador' && (
                   <div>
                   <PopUpDeleteFine multaDel={item} onDelete={fetch} />
-                  <EditFine multaEdit={item} onEdit={fetch} />
                   </div>
                 )}
               </td>

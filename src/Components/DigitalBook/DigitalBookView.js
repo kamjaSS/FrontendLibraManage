@@ -6,6 +6,7 @@ import '../../index.css';
 import { fetchToken, RequireToken } from '../Auth.js';
 import EditDigitalBook from './EditDigitalBook';
 import Swal from 'sweetalert2';
+import PopupDeleteDigitalBook from './PopupDeleteDigitalBook.js';
 
 const DigitalBook = () => {
 
@@ -100,7 +101,8 @@ const DigitalBook = () => {
     event.preventDefault();
     console.log("Formulario de categorías:", formDigitalBooks);
     const response = await api.post(`/register_digitalBooks/?titulo=${encodeURIComponent(formDigitalBooks.titulo)}&descripcion=${encodeURIComponent(formDigitalBooks.descripcion)}&precio=${encodeURIComponent(formDigitalBooks.precio)}&id_autor=${encodeURIComponent(formDigitalBooks.id_autor)}&id_categoria=${encodeURIComponent(formDigitalBooks.id_categoria)}&id_subcategoria=${encodeURIComponent(formDigitalBooks.id_subcategoria)}&url_image=${encodeURIComponent(formDigitalBooks.portada)}&link_libro=${encodeURIComponent(formDigitalBooks.link_Libro)}`);
-    console.log(response);
+    
+
     if (response.status === 200) {
       Swal.fire({ title: "Registro Realizado", text: "Se realizó el registro exitosamente", icon: "success" });
     } else {
@@ -260,7 +262,9 @@ const DigitalBook = () => {
                   <td>{getAuthorName(libro.id_autor)}</td>
                   <td>{getSubcategoryName(libro.id_subcategoria)}</td>
                   <td>{getCategoryName(libro.id_categoria)}</td>
-                  
+                  <td>
+                    <PopupDeleteDigitalBook dBookDel={libro} onDelete={fetchDigitalBooks} />
+                  </td>
                 </tr>
               ))}
             </tbody>

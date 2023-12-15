@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MainView from './Components/Main/MainView';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import '/ESTUDIO 2023/2023-2/Sotware II/proyecto/libraManage - Frontend/FrontendLibraManage/src/index.css';
-//import '/Users/aleja/OneDrive/Documents/2023-2/Software II/FrontendProyecto/Frontend/libramanage/src/index.css';
+import './App.css';
 import { BrowserRouter, Outlet, Routes, Route, Link } from 'react-router-dom';
 import PhysicalBook from './Components/PhysicalBook/PhysicalBookView';
 import CategoryView from './Components/Category/CategoryView';
@@ -175,7 +174,7 @@ const App = () => {
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                <li><Link to='/prestamosComprasUsuario' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Comprados y Prestados</Link></li>
+                <li><Link to='/prestamosComprasUsuario' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Prestados</Link></li>
 
               </ul>
             </div>
