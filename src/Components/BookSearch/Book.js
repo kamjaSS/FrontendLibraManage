@@ -41,7 +41,7 @@ export const Book = ({ book, autor, categoria, subcategoria}) => {
 
       if (await response.status === 200) {
         Swal.fire({title: "Compra Realizada", text: "Se realizó la compra exitosamente",icon: "success"});
-        alert('Libro comprado');
+        
         setBuyForm({
           id_usuario : 0,
           id_libroDigital : 0
@@ -71,7 +71,6 @@ export const Book = ({ book, autor, categoria, subcategoria}) => {
           });
         if (await response.status === 200) {
           Swal.fire({title: "Reserva Realizada", text: "Se realizó la reserva exitosamente",icon: "success"});
-          alert('Libro reservado');
           setAvailable(0);//no aparece nada
           setSelectedDate('');
           setLoanFrom({

@@ -12,10 +12,7 @@ function PopupDeleteSubcateg({subcategoríaDel, onDelete}) {
   const handleDeleteSubcategory = async (event) => {
     event.preventDefault();
     console.log(subcategoríaDel);
-    await api.delete(`/delete_subcategories/${subcategoríaDel.id}`,
-    {
-      headers: { 'Authorization': `Bearer ${fetchToken()}` }
-    });
+    await api.delete(`/delete_subcategories/${subcategoríaDel.id}`);
     onDelete();
     handleClose();
   };
