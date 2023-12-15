@@ -1,12 +1,39 @@
 import React, { useState, useEffect } from "react";
 import api from "../../api";
 import PopUpDeleteLoan from "./PopUpDeleteLoan";
+import { decodeToken } from 'react-jwt';
+import { fetchToken } from '../Auth';
+
 
 
 const LoanView = () => {
     const [loanData, setLoanData] = useState([]);
     const [userData, setUserData] = useState([]);
     const [bookData, setBookData] = useState([]);
+    const [roles, setRoles] = useState([]);
+
+    const getNameRol = (rolId) => {
+      const role = roles.find((rol) => rol.id === rolId);
+      return role ? role.nombre : 'N/A';
+    };
+    useEffect(() => {
+      const fetchRoles = async () => {
+        try {
+          const response = await api.get('/all_roles/',
+            {
+              headers: { 'Authorization': `Bearer ${fetchToken()}` }
+            });
+          if (response.status === 200) {
+            setRoles(response.data);
+          }
+        } catch (error) {
+          console.error("Error en la respuesta del servidor:", error);
+        }
+      };
+      fetchRoles();
+    }, []);
+    const rolId = parseInt(decodeToken(localStorage.getItem('token')).role, 10);
+    const rol_name = getNameRol(rolId);
 
     const getUserName = (userId) =>{
         const user = userData.find((user) => user.id === userId);
@@ -77,6 +104,7 @@ const LoanView = () => {
                                     <th scope="col">Fech. Prestamo</th>
                                     <th scope="col">Fech. Vencimiento</th>
                                     <th scope="col">Estado</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,6 +120,7 @@ const LoanView = () => {
                                         <td>{loan.fechaPrestamo}</td>
                                         <td>{loan.fechaVencimiento}</td>
                                         <td>{loan.devuelto === true ? 'Devuelto' : 'No Devuelto'}</td>
+                                        {rol_name === 'Administrador' &&(
                                         <td>
                                             <PopUpDeleteLoan
                                                 prestamoDel={loan}
@@ -99,6 +128,7 @@ const LoanView = () => {
                                             />
 
                                         </td>
+                                        )}
                                     </tr>
                                 ))}
                             </tbody>
