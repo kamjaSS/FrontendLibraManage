@@ -5,8 +5,9 @@ import '../../index.css'
 import PopUpForgivenFine from './PopUpForgivenFine';
 import PopUpPayFine from './PopUpPayFine';
 import PopUpDeleteFine from './PopUpDeleteFine';
+import { fetchToken, RequireToken } from '../Auth.js';
+import EditFine from './EditFine.js';
 import { decodeToken } from 'react-jwt';
-import { fetchToken } from '../Auth';
 
 const FineView = () => {
   const [fineData, setFineData] = useState([]);
@@ -43,7 +44,13 @@ const FineView = () => {
 
   const actualizarMultas = async () => {
     await api.post('/add_fine_automatically/')
-    fetch()
+    fetch();
+    }
+    const fetchFineEdit = async (id) => {
+        const response = await api.get(`/all_finee/${id}`, {
+            headers: { Authorization: `Bearer ${fetchToken()}` }
+        });
+        setFineData(response.data);
   }
 
   useEffect(() => {
@@ -63,7 +70,6 @@ const FineView = () => {
 
     fetchData();
   }, []);
-
 
 
   return (
@@ -99,7 +105,10 @@ const FineView = () => {
                   <PopUpForgivenFine multaForgiven={item} onForgiven={fetch} />
                 )}
                 {rol_name === 'Administrador' && (
+                  <div>
                   <PopUpDeleteFine multaDel={item} onDelete={fetch} />
+                  <EditFine multaEdit={item} onEdit={fetch} />
+                  </div>
                 )}
               </td>
               {/* Agrega más celdas según la estructura de tus datos */}

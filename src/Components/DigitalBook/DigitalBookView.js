@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import api from '../../api';
 import { useNavigate } from "react-router-dom";
-import { fetchToken } from '../Auth.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../index.css';
+import { fetchToken, RequireToken } from '../Auth.js';
+import EditDigitalBook from './EditDigitalBook';
 import Swal from 'sweetalert2';
 
 const DigitalBook = () => {
@@ -61,6 +62,14 @@ const DigitalBook = () => {
     const response = await api.get('/all_digitalBooks/');
     setDigitalBooks(response.data);
   };
+  
+  const fetchDigitalBooksEdit = async (id) => {
+    const response = await api.get(`/all_digitalBooks/${id}`, 
+    {
+      headers: { 'Authorization': `Bearer ${fetchToken()}` }
+    });
+    setDigitalBooks(response.data);
+  }  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -238,6 +247,7 @@ const DigitalBook = () => {
                 <th>Autor</th>
                 <th>Subcategoria</th>
                 <th>Categoria</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -258,6 +268,9 @@ const DigitalBook = () => {
                   <td>{getAuthorName(libro.id_autor)}</td>
                   <td>{getSubcategoryName(libro.id_subcategoria)}</td>
                   <td>{getCategoryName(libro.id_categoria)}</td>
+                  <td>
+                    <EditDigitalBook libroEdit={libro} onEdit={fetchDigitalBooksEdit} />
+                  </td>
                 </tr>
               ))}
             </tbody>
