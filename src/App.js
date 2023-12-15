@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import MainView from './Components/Main/MainView';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import '/ESTUDIO 2023/2023-2/Sotware II/proyecto/libraManage - Frontend/FrontendLibraManage/src/index.css';
-import '/Users/aleja/OneDrive/Documents/2023-2/Software II/FrontendProyecto/Frontend/libramanage/src/index.css';
+import '/ESTUDIO 2023/2023-2/Sotware II/proyecto/libraManage - Frontend/FrontendLibraManage/src/index.css';
+//import '/Users/aleja/OneDrive/Documents/2023-2/Software II/FrontendProyecto/Frontend/libramanage/src/index.css';
 import { BrowserRouter, Outlet, Routes, Route, Link } from 'react-router-dom';
 import PhysicalBook from './Components/PhysicalBook/PhysicalBookView';
 import CategoryView from './Components/Category/CategoryView';
@@ -15,6 +15,9 @@ import Register from './Components/User/Register';
 import UserView from './Components/User/UserView';
 import ReportView from './Components/Reporte/ReportView.js';
 import FineView from './Components/Fine/FineView.js';
+import LoanView from './Components/Loan/LoanView.js';
+import ReturnLoanView from './Components/Loan/ReturnLoanView.js';
+import PurchaseLoanByUser from './Components/PurchasesLoanUser/PurchaseLoanUserView.js';
 import { RequireToken, fetchToken } from './Components/Auth.js';
 import BooksView from './Components/BookSearch/BooksView.js';
 import EditUser from './Components/User/EditUser.js';
@@ -27,12 +30,34 @@ const App = () => {
   const [category, setCategory] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
   const [author, setAuthor] = useState([]);
+  const [userId, setUserId] = useState([]);
 
   const getNameRol = (rolId) => {
     const role = roles.find((rol) => rol.id === rolId);
     return role ? role.nombre : 'N/A';
   };
   useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+        const token = await fetchToken();
+        if (token === null) {
+          return;
+        }
+        const response = await api.get(`/id_userToken/${token}`,
+          {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+        
+          if (response.status === 200) {
+            await setUserId(await response.data);
+          }
+      } catch (error) {
+        console.error("Error en la respuesta del servidor:", error);
+      }
+    };
+
+
     const fetchRoles = async () => {
       try {
         const response = await api.get('/rol/Administrador',
@@ -46,6 +71,7 @@ const App = () => {
         console.error("Error en la respuesta del servidor:", error);
       }
     };
+    fetchData();
     fetchRoles();
   }, []);
 
@@ -69,25 +95,30 @@ const App = () => {
           </Link>
         </div>
         <div className="d-flex align-items-center tamaño-letra">
-          <div className="dropdown">
-            <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionLibreria" data-bs-toggle="dropdown" aria-expanded="false">
-              Gestion Libreria
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><Link to='/report' className="dropdown-item" style={{ fontSize: '10px' }}>Informe</Link></li>
-              <li><Link to='/multas' className="dropdown-item" style={{ fontSize: '10px' }}>Multas</Link></li>
-            </ul>
-          </div>
           {roles.nombre === 'Administrador' && (
-          <div className="dropdown">
-            <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionUsuarios" data-bs-toggle="dropdown" aria-expanded="false">
-              Gestion Usuarios
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><Link to='/user' className="dropdown-item" style={{ fontSize: '10px' }}>Usuarios</Link></li>
-              <li><Link to='/rol' className="dropdown-item" style={{ fontSize: '10px' }}>Rol</Link></li>
-            </ul>
-          </div>
+            <div className="dropdown">
+              <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionLibreria" data-bs-toggle="dropdown" aria-expanded="false">
+                Gestion Libreria
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><Link to='/report' className="dropdown-item" style={{ fontSize: '10px' }}>Informe</Link></li>
+                <li><Link to='/multas' className="dropdown-item" style={{ fontSize: '10px' }}>Multas</Link></li>
+                <li><Link to='/prestamos' className="dropdown-item" style={{ fontSize: '10px' }}>Prestamos</Link></li>
+                <li><Link to='/devoluciones' className="dropdown-item" style={{ fontSize: '10px' }}>Devoluciones</Link></li>
+              </ul>
+            </div>
+
+          )}
+          {roles.nombre === 'Administrador' && (
+            <div className="dropdown">
+              <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionUsuarios" data-bs-toggle="dropdown" aria-expanded="false">
+                Gestion Usuarios
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><Link to='/user' className="dropdown-item" style={{ fontSize: '10px' }}>Usuarios</Link></li>
+                <li><Link to='/rol' className="dropdown-item" style={{ fontSize: '10px' }}>Rol</Link></li>
+              </ul>
+            </div>
           )}
           <div className="dropdown">
             <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionLibros" data-bs-toggle="dropdown" aria-expanded="false">
@@ -97,6 +128,16 @@ const App = () => {
 
               <li><Link to='/librosFisicos' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Físicos</Link></li>
               <li><Link to='/librosDigitales' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Digitales</Link></li>
+
+            </ul>
+          </div>
+          <div className="dropdown">
+            <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionLibros" data-bs-toggle="dropdown" aria-expanded="false">
+              Gestion Personal
+            </button>
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+              <li><Link to='/prestamosComprasUsuario' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Comprados y Prestados</Link></li>
 
             </ul>
           </div>
@@ -133,10 +174,13 @@ const App = () => {
           <Route path="/author" element={<AuthorView />} />
           <Route path="/rol" element={<RolView />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/books" element={<BooksView setBook={setBook} setCategory={setCategory} setSubcategory={setSubcategory} setAuthor={setAuthor}/>} />
+          <Route path="/books" element={<BooksView setBook={setBook} setCategory={setCategory} setSubcategory={setSubcategory} setAuthor={setAuthor} />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/book" element={<Book book={book} categoria={category} subcategoria={subcategory} autor={author}/>} />
+          <Route path="/book" element={<Book book={book} categoria={category} subcategoria={subcategory} autor={author} />} />
           <Route path='/multas' element={<FineView />} />
+          <Route path='/prestamos' element={<LoanView />} />
+          <Route path='/devoluciones' element={<ReturnLoanView />} />
+          <Route path='/prestamosComprasUsuario' element={<PurchaseLoanByUser userId={userId} />} />
 
           <Route
             path="/librosDigitales"

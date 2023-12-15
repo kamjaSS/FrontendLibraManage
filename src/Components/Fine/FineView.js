@@ -16,18 +16,16 @@ const FineView = () => {
 
     const actualizarMultas = async () => {
        await api.post('/add_fine_automatically/')
-       fetch();
+       fetch()
     }
     
     useEffect(() => {
-        actualizarMultas()
         const fetchData = async () => {
         try {
             const response = await api.get('/all_finee/');
             console.log(Array.isArray(response.data));
             if (Array.isArray(response.data)) {
             setFineData(response.data);
-            console.log(response.data);
             } else {
             console.error("La respuesta de la API no es un array:", response.data);
             }
@@ -42,7 +40,9 @@ const FineView = () => {
 
     return (
         <div className='container'>
-        <h2 className='text-center'><strong>Informe</strong></h2>
+        <h2 className='text-center'><strong>Multas</strong></h2>
+
+        <button className='btn btn-success' onClick={actualizarMultas}>Actualizar Multas</button>
   
         <table className='table table-striped table-bordered table-hover mt-4'>
           <thead>
