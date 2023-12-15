@@ -22,7 +22,7 @@ jobs:
           node-version: '18.x'
 
       - name: npm install, build, and test
-        run: |
+        run: 
           npm run build
 
       - name: Zip artifact for deployment
