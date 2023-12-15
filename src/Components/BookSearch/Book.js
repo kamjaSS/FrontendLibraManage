@@ -3,6 +3,7 @@ import api from '../../api';
 import { Card, Col} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
+import Swal from 'sweetalert2';
 import { fetchToken, RequireToken } from '../Auth.js';
 
 import 'react-datepicker/dist/react-datepicker.css';
@@ -39,11 +40,14 @@ export const Book = ({ book, autor, categoria, subcategoria}) => {
         });
 
       if (await response.status === 200) {
+        Swal.fire({title: "Compra Realizada", text: "Se realizó la compra exitosamente",icon: "success"});
         alert('Libro comprado');
         setBuyForm({
           id_usuario : 0,
           id_libroDigital : 0
         });
+      } else {
+        Swal.fire({title: "Error Reserva",text: "Hubo un error a la hora de realiza reserva", icon: "error"});
       }
 
     } catch (error) {
@@ -66,14 +70,17 @@ export const Book = ({ book, autor, categoria, subcategoria}) => {
             headers: { 'Authorization': `Bearer ${fetchToken()}` }
           });
         if (await response.status === 200) {
+          Swal.fire({title: "Reserva Realizada", text: "Se realizó la reserva exitosamente",icon: "success"});
           alert('Libro reservado');
           setAvailable(0);//no aparece nada
-          setSelectedDate('')
+          setSelectedDate('');
           setLoanFrom({
             fechaPrestamo : '',    
             id_usuario : 0,
             id_libroFisico : 0
           });
+        } else {
+          Swal.fire({title: "Error Reserva",text: "Hubo un error a la hora de realiza reserva", icon: "error"});
         }
       }
     } catch (error) {
@@ -95,7 +102,6 @@ export const Book = ({ book, autor, categoria, subcategoria}) => {
       if (token === null) {
         return;
       }
-      console.log(token)
       const response = await api.get(`/id_userToken/${token}`,
         {
           headers: { 'Authorization': `Bearer ${token}` }

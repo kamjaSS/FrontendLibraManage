@@ -3,6 +3,7 @@ import api from '../../api';
 import { fetchToken } from '../Auth.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../index.css';
+import Swal from 'sweetalert2';
 
 
 const PhysicalBook = () => {
@@ -138,9 +139,12 @@ const PhysicalBook = () => {
   const handleSubmitPhysicalBooks = async (event) => {
     event.preventDefault();
     try {
-
-      //await api.post('/new_subcategory/', formPhysicalBooks);
-      await api.post('/register_physicalBooks/', formPhysicalBooks);
+      const response = await api.post('/register_physicalBooks/', formPhysicalBooks);
+      if (response.status === 200) {
+        Swal.fire({ title: "Registro Realizado", text: "Se realizó el registro del libro exitosamente", icon: "success" });
+      } else {
+        Swal.fire({ title: "Error", text: "No se pudo realizar el registro", icon: "error" });
+      }
       fetchPhysicalBooks();
       setFormPhysicalBooks({
         titulo: '',

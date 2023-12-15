@@ -19,6 +19,7 @@ import BooksView from './Components/BookSearch/BooksView.js';
 import EditUser from './Components/User/EditUser.js';
 import api from './api.js';
 import { Book } from './Components/BookSearch/Book.js';
+import IAView from './Components/ChatGPT/IAView.js';
 
 const App = () => {
   const [roles, setRoles] = useState([]);
@@ -147,6 +148,8 @@ const App = () => {
               <Link to='/register' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}>Registrarse</Link>
             </>
           )}
+
+          <Link to='/IA' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}>IA</Link>
         </div>
 
       </nav>
@@ -176,6 +179,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path='/multas' element={<FineView />} />
           <Route path='/book' element={<Book book={book} categoria={category} subcategoria={subcategory} autor={author} />} />
+          <Route path='/IA' element={<IAView />} />
 
           <Route
             path="/librosDigitales"

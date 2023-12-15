@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api';
 import PopupDeleteCateg from './PopupDeleteCateg';
 import PopUpMessage from '../PopUpInfo/PopUpMessage';
+import Swal from 'sweetalert2';
 
 const CategoryView = () => {
   const [categories, setCategories] = useState([]);
@@ -41,7 +42,11 @@ const CategoryView = () => {
     event.preventDefault();
     console.log("Formulario de categorías:", fromCategories);
     const response = await api.post('/new_category/', fromCategories);
-    console.log(response.status)
+    if(response.status === 200){
+      Swal.fire({title: "Registro Realizado", text: "Se realizó el registro exitosamente",icon: "success"});
+    } else {
+      Swal.fire({title: "Error", text: "No se pudo realizar el registro",icon: "error"});
+    }
     fetchCategories();
     setFormCategories({
       nombre: ''

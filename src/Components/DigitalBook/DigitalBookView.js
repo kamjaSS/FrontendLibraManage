@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchToken } from '../Auth.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../index.css';
+import Swal from 'sweetalert2';
 
 const DigitalBook = () => {
 
@@ -89,7 +90,13 @@ const DigitalBook = () => {
   const handleSubmitDigitalBooks = async (event) => {
     event.preventDefault();
     console.log("Formulario de categorías:", formDigitalBooks);
-    //await api.post('/new_subcategory/', formDigitalBooks);
+    const response = await api.post('/new_subcategory/', formDigitalBooks);
+
+    if (response.status === 200) {
+      Swal.fire({ title: "Registro Realizado", text: "Se realizó el registro exitosamente", icon: "success" });
+    } else {
+      Swal.fire({ title: "Error", text: "No se pudo realizar el registro", icon: "error" });
+    }
     fetchDigitalBooks();
     setFormDigitalBooks({
       titulo: '',

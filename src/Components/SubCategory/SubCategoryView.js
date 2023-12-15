@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import api from '../../api';
 import PopupDeleteSubcateg from './PopupDeleteSubcateg';
+import Swal from 'sweetalert2';
 
 const SubCategoryView  = () => {
   const [subcategories, setSubcategories] = useState([]);
@@ -39,7 +40,12 @@ const SubCategoryView  = () => {
   const handleSubmitSubcategories = async (event) => {
     event.preventDefault();
     console.log("Formulario de categorías:", fromSubcategories);
-    await api.post('/new_subcategory/', fromSubcategories);
+    const response = await api.post('/new_subcategory/', fromSubcategories);
+    if (response.status === 200) {
+      Swal.fire({title: 'Subcategoría creada', text: "Se realizó el registro de la Subcategoría exitosamente", icon: 'success'});
+    } else {
+      Swal.fire({title: 'Error', text: "No se pudo realizar el registro de la Subcategoría", icon: 'error'});
+    }
     fetchSubcategories();
     setFormSubcategories({
       nombre: ''
