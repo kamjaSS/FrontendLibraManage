@@ -53,10 +53,10 @@ const App = () => {
           {
             headers: { 'Authorization': `Bearer ${token}` }
           });
-        
-          if (response.status === 200) {
-            await setUserId(await response.data);
-          }
+
+        if (response.status === 200) {
+          await setUserId(await response.data);
+        }
       } catch (error) {
         console.error("Error en la respuesta del servidor:", error);
       }
@@ -82,7 +82,7 @@ const App = () => {
           {
             headers: { 'Authorization': `Bearer ${fetchToken()}` }
           });
-          console.log(await response.data)
+        console.log(await response.data)
         if (response.status === 200) {
           setUser(response.data);
         }
@@ -116,7 +116,7 @@ const App = () => {
           </Link>
         </div>
         <div className="d-flex align-items-center tamaño-letra">
-          {(name_rol === 'Cliente' || name_rol === 'Bibliotecario' || name_rol ==='Administrador') && (
+          {(name_rol === 'Cliente' || name_rol === 'Bibliotecario' || name_rol === 'Administrador') && (
             <div className="dropdown">
               <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionLibreria" data-bs-toggle="dropdown" aria-expanded="false">
                 Gestion Libreria
@@ -130,7 +130,7 @@ const App = () => {
             </div>
           )}
 
-          
+
 
 
           {name_rol === 'Administrador' && (
@@ -166,18 +166,20 @@ const App = () => {
                 <li><Link to='/author' className="dropdown-item" style={{ fontSize: '10px' }}>Autores</Link></li>
               </ul>
             </div>
-            
+
           )}
-          <div className="dropdown">
-            <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionLibros" data-bs-toggle="dropdown" aria-expanded="false">
-              Gestion Personal
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          {name_rol === 'Administrador' && (
+            <div className="dropdown">
+              <button className="btn outlineNav black dropdown-toggle" style={{ fontSize: '10px' }} type="button" id="gestionLibros" data-bs-toggle="dropdown" aria-expanded="false">
+                Gestion Personal
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-              <li><Link to='/prestamosComprasUsuario' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Comprados y Prestados</Link></li>
+                <li><Link to='/prestamosComprasUsuario' className="dropdown-item" style={{ fontSize: '10px' }}>Libros Comprados y Prestados</Link></li>
 
-            </ul>
-          </div>
+              </ul>
+            </div>
+          )}
           <Link to='/books' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}>Buscar Libro</Link>
           {localStorage.getItem('token') ? (
             <a href='/books' type='button' className="btn outlineNav black mx-2" style={{ fontSize: '10px' }}
@@ -217,7 +219,9 @@ const App = () => {
 
           <Route path="/books" element={<BooksView setBook={setBook} setCategory={setCategory} setSubcategory={setSubcategory} setAuthor={setAuthor} />} />
           <Route path="/register" element={<Register />} />
-          <Route path='/multas' element={<FineView />} />
+       
+            <Route path='/multas' element={<FineView />} />
+          
           <Route path='/book' element={<Book book={book} categoria={category} subcategoria={subcategory} autor={author} />} />
           <Route path='/IA' element={<IAView />} />
 

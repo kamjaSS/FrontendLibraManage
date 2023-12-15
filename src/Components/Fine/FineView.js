@@ -35,49 +35,49 @@ const FineView = () => {
   }, []);
   const rolId = parseInt(decodeToken(localStorage.getItem('token')).role, 10);
   const rol_name = getNameRol(rolId);
-  console.log("rol_name:", rol_name);
+
 
   const fetch = async () => {
     const response = await api.get('/all_finee/');
     setFineData(response.data);
   };
 
-    const actualizarMultas = async () => {
-       await api.post('/add_fine_automatically/')
-       fetch();
+  const actualizarMultas = async () => {
+    await api.post('/add_fine_automatically/')
+    fetch();
     }
     const fetchFineEdit = async (id) => {
         const response = await api.get(`/all_finee/${id}`, {
             headers: { Authorization: `Bearer ${fetchToken()}` }
         });
         setFineData(response.data);
-    }
-    
-    useEffect(() => {
-        const fetchData = async () => {
-        try {
-            const response = await api.get('/all_finee/');
-            console.log(Array.isArray(response.data));
-            if (Array.isArray(response.data)) {
-            setFineData(response.data);
-            } else {
-            console.error("La respuesta de la API no es un array:", response.data);
-            }
-        } catch (error) {
-            console.error("Error fetching authors:", error);
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get('/all_finee/');
+        console.log(Array.isArray(response.data));
+        if (Array.isArray(response.data)) {
+          setFineData(response.data);
+        } else {
+          console.error("La respuesta de la API no es un array:", response.data);
         }
-        };
-    
-        fetchData();
-    }, []);
+      } catch (error) {
+        console.error("Error fetching authors:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
 
   return (
     <div className='container'>
-              <h2 className='text-center'><strong>Multas</strong></h2>
-
-              <button className='btn btn-success' onClick={actualizarMultas}>Actualizar Multas</button>
-
+      <h2 className='text-center'><strong>Multas</strong></h2>
+      {(rol_name === 'Administrador' || rol_name === 'Bibliotecario') && (
+      <button className='btn btn-success' onClick={actualizarMultas}>Actualizar Multas</button>
+      )}
       <table className='table table-striped table-bordered table-hover mt-4'>
         <thead>
           <tr>
