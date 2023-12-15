@@ -5,6 +5,8 @@ import '../../index.css'
 import PopUpForgivenFine from './PopUpForgivenFine';
 import PopUpPayFine from './PopUpPayFine';
 import PopUpDeleteFine from './PopUpDeleteFine';
+import { fetchToken, RequireToken } from '../Auth.js';
+import EditFine from './EditFine.js';
 
 const FineView = () => {
     const [fineData, setFineData] = useState([]);
@@ -17,6 +19,12 @@ const FineView = () => {
     const actualizarMultas = async () => {
        await api.post('/add_fine_automatically/')
        fetch();
+    }
+    const fetchFineEdit = async (id) => {
+        const response = await api.get(`/all_finee/${id}`, {
+            headers: { Authorization: `Bearer ${fetchToken()}` }
+        });
+        setFineData(response.data);
     }
     
     useEffect(() => {
@@ -69,6 +77,7 @@ const FineView = () => {
                     <PopUpPayFine multaPay={item} onPay={fetch} />
                     <PopUpForgivenFine multaForgiven={item} onForgiven={fetch} />
                     <PopUpDeleteFine multaDel={item} onDelete={fetch} />
+                    <EditFine multaEdit={item} onEdit={fetch} />
 
                 </td>
                 {/* Agrega más celdas según la estructura de tus datos */}
