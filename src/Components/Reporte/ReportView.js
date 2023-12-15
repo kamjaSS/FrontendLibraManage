@@ -5,11 +5,23 @@ import '../../index.css'
 
 const ReportView = () => {
   const [reportData, setReportData] = useState([]);
+  const [userData, setUserData] = useState([]);
+
+  const getUserName = (userId) =>{
+    const user = userData.find((user) => user.id === userId);
+    return user ? user.nombre : 'No existe';
+}
+
+const fetchUser = async () => {
+  const reponse = await api.get("/all_users/");
+  setUserData(reponse.data);
+}
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await api.get('/report/');
+        fetchUser();
         console.log(Array.isArray(response.data));
         if (Array.isArray(response.data)) {
           setReportData(response.data);
@@ -84,22 +96,24 @@ const ReportView = () => {
       <table className='table table-striped table-bordered table-hover mt-4'>
         <thead>
           <tr>
+            <th>ID Usuario</th>
+            <th>Nombre</th>
             <th>Fecha</th>
             <th># Lib. Prestados</th>
             <th># Lib. No Devueltos</th>
             <th># Lib. Comprados</th>
-            <th>Usuario</th>
             {/* Agrega más columnas según la estructura de tus datos */}
           </tr>
         </thead>
         <tbody>
           {reportData.map(item => (
             <tr key={item.id}>
+              <td>{item.id_usuario}</td>
+              <td>{getUserName(item.id_usuario)}</td>
               <td>{item.fechaGeneracion}</td>
               <td>{item.numeroLibrosPrestados}</td>
               <td>{item.numeroLibrosNoDevueltos}</td>
               <td>{item.numeroComprasLibros}</td>
-              <td>{item.id_usuario}</td>
               {/* Agrega más celdas según la estructura de tus datos */}
             </tr>
           ))}

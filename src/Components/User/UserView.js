@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api';
-import { fetchToken, RequireToken } from '../Auth.js';
+import { fetchToken } from '../Auth.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../index.css';
 import PopupDeleteUser from './PopupDeleteUser.js';
@@ -8,14 +8,13 @@ import EditUser from './EditUser.js';
 
 const UserView = () => {
     const [users, setUsers] = useState([]);
-    const [user, setUser] = useState(null);
-
     const [fromUser, setFormUser] = useState({
         nombre: '',
         correo: '',
         fechaNacimiento: '',
         id_rol: '',
     });
+    const [user, setUser] = useState(null);
     const [roles, setRoles] = useState([]);
 
     const fetchUser = async () => {
@@ -24,35 +23,7 @@ const UserView = () => {
                 headers: { 'Authorization': `Bearer ${fetchToken()}` }
             });
         setUsers(response.data);
-    };
-
-    const fetchUserEdit = async (id) => {
-        const response = await api.get(`/all_users/${id}`,
-            {
-                headers: { 'Authorization': `Bearer ${fetchToken()}` }
-            });
-        setUser(response.data);
     }
-
-    const fetchRoles = async () => {
-        const response = await api.get('/all_roles/');
-        setRoles(response.data);
-    };
-
-    useEffect(() => {
-        const fetchRol = async () => {
-            try {
-                const response = await api.get('/all_roles/');
-                if (response.status === 200) {
-                    setRoles(response.data);
-                }
-            } catch (error) {
-                console.error("Error en la respuesta del servidor:", error);
-            }
-        };
-        fetchRol();
-    }, []);
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,6 +45,38 @@ const UserView = () => {
 
         fetchData();
     }, []);
+
+
+    const fetchUserEdit = async (id) => {
+        const response = await api.get(`/update_user/${id}`,
+            {
+                headers: { 'Authorization': `Bearer ${fetchToken()}` }
+            });
+        setUser(response.data);
+    }
+    console.log("Usuarioooooo.....",user);
+
+    const fetchRoles = async () => {
+        const response = await api.get('/all_roles/');
+        setRoles(response.data);
+    };
+
+    useEffect(() => {
+        const fetchRol = async () => {
+            try {
+                const response = await api.get('/all_roles/');
+                if (response.status === 200) {
+                    setRoles(response.data);
+                }
+            } catch (error) {
+                console.error("Error en la respuesta del servidor:", error);
+            }
+        };
+        fetchRol();
+    }, []);
+
+
+
 
     const handleInputChangeUsers = (event) => {
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;

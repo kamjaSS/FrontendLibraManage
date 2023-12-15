@@ -5,6 +5,7 @@ import { setToken, fetchToken } from '../Auth.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../index.css';
 import Swal from 'sweetalert2';
+import { decodeToken } from 'react-jwt';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -18,16 +19,14 @@ export default function Login() {
             Swal.fire('Error', 'Ingrese una contraseña', 'error');
         } else {
             try {
-                const response = await api.post(`/login_user?correo=${encodeURIComponent(correo)}&contrasena=${encodeURIComponent(contrasena)}`);
-
-
+                const response = await api.post(`/login_user/?correo=${encodeURIComponent(correo)}&contrasena=${encodeURIComponent(contrasena)}`);
+                //const response = await api.post(`/login_user/`, { correo: correo, contrasena: contrasena });
+               
                 if (response && response.data) {
                     if (response.data) {
-                        // Inicio de sesión exitoso
-                        setToken(response.data);
-
-                        navigate("/librosFisicos");
-                        console.log("Token de inicio de sesión:", response.data);
+                        
+                        setToken(response.data.token, correo);
+                        navigate("/books");
                         window.location.reload();
 
                     } else {
@@ -90,6 +89,7 @@ export default function Login() {
 
                                                 <div className="d-flex justify-content-between">
                                                     <input type="button" className="btn btn-success btn-lg" name="submit" id="submit" value="Iniciar sesión" onClick={handleSubmit}></input>
+                                                    <Link to={'/register'} type="button" className="btn btn-secondary btn-lg" name="submit">Crear cuenta</Link>
                                                     <Link to={'/books'} type="button" className="btn btn-danger btn-lg" name="submit">Cancelar</Link>
                                                 </div>
                                             </form>

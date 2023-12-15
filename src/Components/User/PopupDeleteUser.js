@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import api from '../../api.js';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -14,13 +14,11 @@ function PopupDeleteUser({ userDel, onDelete }) {
         event.preventDefault();
     
         const url = `/delete/${userDel.id}`;
-        console.log('URL de solicitud:', url);
     
         try {
-            const response = await api.delete(url, {
+            await api.delete(url, {
                 headers: { 'Authorization': `Bearer ${fetchToken()}` }
             });
-            console.log('Respuesta:', response);
             onDelete();
             handleClose();
         } catch (error) {

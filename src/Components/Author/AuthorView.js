@@ -3,6 +3,7 @@ import api from "../../api";
 import PopupDeleteAuthor from "./PopupDeleteAuthor";
 import EditAuthor from "./EditAuthor";
 import { fetchToken, RequireToken } from "../Auth.js";
+import Swal from 'sweetalert2';
 
 const AuthorView = () => {
   const [authors, setAuthors] = useState([]);
@@ -47,7 +48,12 @@ const AuthorView = () => {
   const handleSubmitAuthors = async (event) => {
     event.preventDefault();
     console.log("Formulario de categorías:", fromAuthors);
-    await api.post("/new_author/", fromAuthors);
+    const response = await api.post('/new_author/', fromAuthors);
+    if (response.status === 200) {
+      Swal.fire({title: 'Autor creado', text: "Se realizó el registro del Autor exitosamente", icon: 'success'});
+    } else {
+      Swal.fire({title: 'Error', text: "No se pudo realizar el registro del Autor", icon: 'error'});
+    }
     fetchAuthors();
     setFormAuthors({
       nombre: "",

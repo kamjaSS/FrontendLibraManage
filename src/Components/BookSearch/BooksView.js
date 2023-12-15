@@ -166,6 +166,7 @@ const BooksView = ({setBook, setCategory, setSubcategory, setAuthor}) => {
                   aria-describedby="basic-addon1"
                   onChange={handleTitleChange}
                   value={filters.titulo}
+                  style={{maxHeight: '38px'}}
                 />
               </div>
             </div>
@@ -185,6 +186,7 @@ const BooksView = ({setBook, setCategory, setSubcategory, setAuthor}) => {
                   aria-describedby="basic-addon1"
                   onChange={handleAuthorChange}
                   value={filters.autor}
+                  style={{maxHeight: '38px'}}
                 />
               </div>
             </div>

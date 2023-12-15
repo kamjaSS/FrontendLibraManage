@@ -3,6 +3,7 @@ import api from '../../api';
 import PopupDeleteRol from './PopupDeleteRol';
 import { fetchToken, RequireToken } from '../Auth.js';
 import EditRol from './EditRol.js';
+import Swal from 'sweetalert2';
 
 const RolView = () => {
   const [roles, setRoles] = useState([]);
@@ -41,7 +42,12 @@ const RolView = () => {
   const handleSubmitRoles = async (event) => {
     event.preventDefault();
     console.log("Formulario de categorías:", fromRoles);
-    await api.post('/rolcreate/', fromRoles);
+    const response = await api.post('/rolcreate/', fromRoles);
+    if (response.status === 200) {
+      Swal.fire({ title: 'Rol creado', text: "Se realizó el registro del Rol exitosamente", icon: 'success' });
+    } else {
+      Swal.fire({ title: 'Error', text: "No se pudo realizar el registro del Rol", icon: 'error' });
+    }
     fetchRoles();
     setFormRoles({
       nombre: ''
