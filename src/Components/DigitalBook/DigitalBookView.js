@@ -90,7 +90,10 @@ const DigitalBook = () => {
   const handleSubmitDigitalBooks = async (event) => {
     event.preventDefault();
     console.log("Formulario de categorías:", formDigitalBooks);
-    const response = await api.post('/new_subcategory/', formDigitalBooks);
+    const response = await api.post('/register_digitalBooks/', formDigitalBooks,
+    {
+      headers: { 'Authorization': `Bearer ${fetchToken()}` }
+    });
 
     if (response.status === 200) {
       Swal.fire({ title: "Registro Realizado", text: "Se realizó el registro exitosamente", icon: "success" });

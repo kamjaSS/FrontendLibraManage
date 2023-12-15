@@ -139,7 +139,10 @@ const PhysicalBook = () => {
   const handleSubmitPhysicalBooks = async (event) => {
     event.preventDefault();
     try {
-      const response = await api.post('/register_physicalBooks/', formPhysicalBooks);
+      const response = await api.post('/register_physicalBooks/', formPhysicalBooks,
+      {
+        headers: { 'Authorization': `Bearer ${fetchToken()}` }
+      });
       if (response.status === 200) {
         Swal.fire({ title: "Registro Realizado", text: "Se realizó el registro del libro exitosamente", icon: "success" });
       } else {

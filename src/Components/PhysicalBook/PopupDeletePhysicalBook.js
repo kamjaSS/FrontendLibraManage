@@ -3,16 +3,16 @@ import api from '../../api';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function PopupDeleteSubcateg({subcategoríaDel, onDelete}) {
+function PopupDeletePhysicalBook({pBookDel, onDelete}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleDeleteSubcategory = async (event) => {
+  const handleDeletePhysicalBook = async (event) => {
     event.preventDefault();
-    console.log(subcategoríaDel);
-    await api.delete(`/delete_subcategories/${subcategoríaDel.id}`,
+    console.log(pBookDel);
+    await api.delete(`/delete_physicalBook/${pBookDel.id}`,
     {
       headers: { 'Authorization': `Bearer ${fetchToken()}` }
     });
@@ -36,16 +36,16 @@ function PopupDeleteSubcateg({subcategoríaDel, onDelete}) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Eliminar Subcategoría</Modal.Title>
+          <Modal.Title>Eliminar Libro Fisico</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Desea eliminar la subcategoría <strong>{subcategoríaDel.nombre}</strong>?
+          Desea eliminar la libro Fisico <strong>{pBookDel.titulo}</strong>?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button variant="danger" onClick={handleDeleteSubcategory}>
+          <Button variant="danger" onClick={handleDeletePhysicalBook}>
             Eliminar
           </Button>
         </Modal.Footer>
@@ -54,4 +54,4 @@ function PopupDeleteSubcateg({subcategoríaDel, onDelete}) {
   );
 }
 
-export default PopupDeleteSubcateg;
+export default PopupDeletePhysicalBook;
