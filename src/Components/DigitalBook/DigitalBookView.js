@@ -6,6 +6,7 @@ import '../../index.css';
 import { fetchToken, RequireToken } from '../Auth.js';
 import EditDigitalBook from './EditDigitalBook';
 import Swal from 'sweetalert2';
+import PopupDeleteDigitalBook from './PopupDeleteDigitalBook.js';
 
 const DigitalBook = () => {
 
@@ -272,7 +273,7 @@ const DigitalBook = () => {
                   <td>{getSubcategoryName(libro.id_subcategoria)}</td>
                   <td>{getCategoryName(libro.id_categoria)}</td>
                   <td>
-                    
+                    <PopupDeleteDigitalBook dBookDel={libro} onDelete={fetchDigitalBooks} />
                   </td>
                 </tr>
               ))}

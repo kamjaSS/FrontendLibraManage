@@ -7,6 +7,323 @@
   pointer-events: none;
 }
 
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 80vh;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.letra-proyecto{
+  font-family: 'Caslon';
+}
+
+.letra-Pagina{
+  font-family: 'Caslon';
+  font-size: 1rem;
+}
+
+.fondo-navLibreria{
+  background-color: #DECDAC;
+}
+
+.titulo-empresa{
+  font-family: 'Caslon';
+  font-size: 2rem;
+  color: #5B5247;
+}
+.titulo-empresa strong{
+  font-size: 2rem;
+  color: #5B5247;
+}
+.titulo-empresa strong:hover{
+  color: #ad6001;
+}
+
+.titulo-empresa:hover{
+  color: #857868;
+}
+
+.nombre-usuario{
+  color: #5B5247;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.nombre-usuario:hover{
+  color: #857868;
+}
+
+.icon-Acciones{
+  height: 35px;
+  width: 40px;
+}
+
+.background-main{
+  background-image: url(./Assets/FondoMain.jpg);
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:cover;
+  color: rgba(238, 228, 228, 0.822);
+  background-attachment: fixed;
+  
+}
+.page-content {
+  position: relative;
+  z-index: 1;
+}
+
+.background-mainColor{
+  background-color: rgba(91, 82, 71, 0.7) ;
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+}
+
+
+.book-container {
+  background-color: #f8f9fa; /* Establece el fondo para la imagen y la descripción */
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+
+.book-image {
+  width: 100000px; /* ajusta el tamaño según tus necesidades */
+  height: auto; /* mantiene la proporción de la imagen */
+}
+
+.custom-btn {
+  max-width: 200px; /* ajusta el ancho máximo según tus necesidades */
+  width: 100%; /* asegura que el botón ocupe el ancho máximo permitido */
+}
+
+.background-mainColor{
+  background-color: rgba(91, 82, 71, 0.7) ;
+  height: 87vh;
+  width: 100%;
+}
+
+.background-titulo{
+  background-color: rgba(91, 82, 71, 0.6) ;
+  border-radius: 25px;
+}
+
+.btn-app{
+  background-color: #EFEFEF;
+  color: #5B5247;
+  border-radius: 25px;
+}
+
+.btn-app:hover{
+  background-color: #5B5247;
+  color: #DECDAC;
+}
+
+.outline {
+  background: transparent;
+  color: #000000;
+  border-color: #0a0a0a;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  padding: 5px 40px;
+  transition: all 0.2s linear;
+  a {
+      text-decoration: none;
+  }
+}
+.outlineNav:hover {
+  color: rgb(3, 3, 3);
+  background: #ffffff;
+  border-color: rgb(4, 4, 4);
+  transition: all 0.2s linear;
+}
+.outlineNav:active {
+  border-radius: 22px;
+}
+
+.cardStyle {
+  background-color: '#DECDAC';
+  border: '1px solid #DECDAC';
+  color: '#333';
+};
+
+.overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: rgb(249, 247, 247);
+  align-items: center;
+  justify-content: center;
+}
+
+.black {
+  font-weight: 700;
+  color: #5B5247;
+  border-color: #5B5247;
+  background: transparent;
+}
+.black:hover {
+  color: white;
+  background: #5B5247;
+  border-color: rgb(154, 150, 145);
+}
+
+.tamaño-subtituloLetra{
+  font-family: 'Caslon';
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.tamaño-letraTarjeta{
+  font-family: 'Caslon';
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.tamaño-descripcion{
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.tarjeta-libro{
+  background-color: #6f93dc;
+  border-radius: 25px;
+}
+
+.titulo-tarjeta{
+  font-family: 'Caslon';
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.btn-IA{
+  background-color: #4A90E2;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #4A90E2;
+}
+
+.btn-IA:hover{
+  background-color: #6BAFE2;
+  border-color: #6BAFE2;
+  color: #111;
+}
+
+.fondo-IA{
+  background-image: url(./Assets/FondoIA.jpg);
+  height: 100%;
+  width: 100%;
+  min-height: 80vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-attachment: fixed;
+}
+
+/*Estilos para el login*/
+
+.page-content {
+  padding: 20px;
+}
+
+.card-cont {
+  background-color: rgba(91, 82, 71, 0.7);
+  border-radius: 20px;
+  
+}
+
+.card-body {
+  padding: 20px;
+  border-radius: 30px;
+  
+}
+
+.form-control {
+  border: none;
+  border-bottom: 1px solid #d2d2d2;
+  border-radius: 0;
+}
+
+.btn-success {
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  border-radius: 20px;
+}
+
+.btn-danger {
+  background-color: #d9534f;
+  border-color: #d43f3a;
+  border-radius: 20px;
+}
+
+.logo-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+  margin: auto;
+  margin-top: -8rem;
+}
+
+.logo-login i {
+  font-size: 5rem;
+  color: #023864;
+  border-radius: 50%;
+  background-color: rgba(230, 217, 217, 0.5);
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.messages-container {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.messages-container p {
+  font-size: 2rem;
+  font-style: 'Caslon';
+  color: rgba(211, 199, 199, 0.7);
+}
+
+.input-group input{
+  border-radius: 20px;
+  height: 3rem;
+}
+
+.input-group select{
+  width: 100%; 
+  border-radius: 20px;
+  height: 3rem;
+}
+
+.input-group span{
+  border-radius: 20px;
+}
+
+/*Hasta aqui login*/
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

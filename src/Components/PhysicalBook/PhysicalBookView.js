@@ -141,10 +141,7 @@ const PhysicalBook = () => {
   const handleSubmitPhysicalBooks = async (event) => {
     event.preventDefault();
     try {
-      const response = await api.post('/register_physicalBooks/', formPhysicalBooks,
-      {
-        headers: { 'Authorization': `Bearer ${fetchToken()}` }
-      });
+      const response = await api.post(`/register_physicalBooks/?titulo=${encodeURIComponent(formPhysicalBooks.titulo)}&descripcion=${encodeURIComponent(formPhysicalBooks.descripcion)}&ubicacion=${encodeURIComponent(formPhysicalBooks.ubicacion)}&estado=${encodeURIComponent(formPhysicalBooks.estado)}&id_autor=${encodeURIComponent(formPhysicalBooks.id_autor)}&id_categoria=${encodeURIComponent(formPhysicalBooks.id_categoria)}&id_subcategoria=${encodeURIComponent(formPhysicalBooks.id_subcategoria)}&url_image=${encodeURIComponent(formPhysicalBooks.portada)}`);
       if (response.status === 200) {
         Swal.fire({ title: "Registro Realizado", text: "Se realizó el registro del libro exitosamente", icon: "success" });
       } else {
@@ -320,6 +317,8 @@ const PhysicalBook = () => {
                   <td>{getSubcategoryName(libro.id_subcategoria)}</td>
                   <td>{getCategoryName(libro.id_categoria)}</td>
                   <td>
+                    {console.log(libro)}
+                    <PopupDeletePhysicalBook pBookDel={libro} onDelete={fetchPhysicalBooks} />
                   </td>
                 </tr>
               ))}
