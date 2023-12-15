@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+// /* eslint-disable jsx-a11y/anchor-is-valid */
 import {useState} from 'react';
 import api from '../../api';
 import Button from 'react-bootstrap/Button';
