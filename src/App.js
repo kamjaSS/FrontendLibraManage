@@ -91,6 +91,7 @@ const App = () => {
       }
     };
     fetchRoles();
+    fetchData();
     fetchUser();
   }, []);
   const userEmail = localStorage.getItem('correo')
@@ -123,6 +124,8 @@ const App = () => {
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><Link to='/report' className="dropdown-item" style={{ fontSize: '10px' }}>Informe</Link></li>
                 <li><Link to='/multas' className="dropdown-item" style={{ fontSize: '10px' }}>Multas</Link></li>
+                <li><Link to='/prestamos' className="dropdown-item" style={{ fontSize: '10px' }}>Prestamos</Link></li>
+                <li><Link to='/devoluciones' className="dropdown-item" style={{ fontSize: '10px' }}>Devoluciones</Link></li>
               </ul>
             </div>
           )}

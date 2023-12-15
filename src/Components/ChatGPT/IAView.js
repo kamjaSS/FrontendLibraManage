@@ -19,7 +19,7 @@ const IAView = () => {
     try {
       const response = await api.get(`/consultaChatGPT/${selectedOption}`);
       console.log(response.data.respuesta);
-      //setResponse(response.data.respuesta);
+      setResponse(response.data.respuesta);
       refForm.current.querySelector('[name="selectOption"]').selectedIndex = 0;
     } catch (error) {
       console.error('Error sending request:', error);
