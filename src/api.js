@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://managebackend.azurewebsites.net/',
+    baseURL: 'https://backend-manage-tau.vercel.app/',
 });
 
 export default api;
