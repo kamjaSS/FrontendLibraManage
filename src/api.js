@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://backend-manage-tau.vercel.app/',
+    baseURL: 'https://backendmanage-kamjass-daniel-munozs-projects.vercel.app/',
 });
 
 export default api;
